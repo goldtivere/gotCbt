@@ -1,4 +1,4 @@
-package got.cbtproject.gotcbt;
+package got;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
