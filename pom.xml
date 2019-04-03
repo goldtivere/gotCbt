@@ -14,7 +14,7 @@
     </parent>
     <groupId>got.cbtproject</groupId>
     <artifactId>gotcbt</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>gotcbt</name>
     <description>GOT Computer Based Test</description>
 
@@ -39,7 +39,7 @@
     </build>
     <scm>
         <developerConnection>scm:git:https://github.com/goldtivere/gotCbt.git</developerConnection>
-        <tag>gotcbt-0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
