@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student extends Person{
-
-    private String regNum;
-    private SchoolGrade schoolGrade;
-    private SchoolTerm schoolTerm;
-    private SchoolYear schoolYear;
+public class SchoolYear extends BaseEntity{
+    private String schoolYear;
 }

@@ -9,9 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question  extends BaseEntity{
-    private String subject;
-    private String classSubject;
+public class SchoolTerm extends BaseEntity{
     private String term;
-    private String year;
 }
