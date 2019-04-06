@@ -14,5 +14,5 @@ public class Answer {
     private String wrongAnswer2;
     private String wrongAnswer3;
     private String correctAnswer;
-    private Question question;
+    private Subject question;
 }

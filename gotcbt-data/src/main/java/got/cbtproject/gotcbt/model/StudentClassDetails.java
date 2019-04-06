@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,15 +18,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbstaff")
-public class Instructor extends Person {
-
-    @Column(name = "phone_number")
-    private String phone_number;
+@Table(name = "tbstudentdetails")
+public class StudentClassDetails{
 
     @OneToMany
-    @Column(name = "staff_id")
-    private List<Staff> staff;
+    @Column(name = "student_id")
+    private Student student;
+
+    @Column(name = "school_grade")
+    @OneToMany
+    private List<SchoolGrade> schoolGrade= new ArrayList();
+    @Column(name = "school_term")
+    @OneToMany
+    private List<SchoolTerm> schoolTerm= new ArrayList();
+    @Column(name = "school_year")
+    @OneToMany
+    private List<SchoolYear> schoolYear= new ArrayList();
+    @Column(name = "is_active")
+    private int active;
 
     @Column(name = "created_on")
     private LocalDate localDate;
@@ -38,5 +48,4 @@ public class Instructor extends Person {
 
     @Column(name = "updated_by")
     private int updatedBy;
-
 }
