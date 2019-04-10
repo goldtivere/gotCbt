@@ -19,11 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tbstudentdetails")
-public class StudentClassDetails{
+public class StudentClassDetails extends BaseEntity{
 
     @OneToMany
     @Column(name = "student_id")
-    private Student student;
+    private List<Student> student;
 
     @Column(name = "school_grade")
     @OneToMany
