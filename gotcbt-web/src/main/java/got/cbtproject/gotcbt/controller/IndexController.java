@@ -1,4 +1,4 @@
-package got.cbtproject.gotcbt;
+package got.cbtproject.gotcbt.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,5 +16,14 @@ public class IndexController {
 
 
         return "index";
+    }
+
+    @RequestMapping({"/dashboard","/dashboard/index","/dashboard/index.html"})
+    public String getDashBoard(Model model) {
+
+
+
+
+        return "dashboard/index";
     }
 }
