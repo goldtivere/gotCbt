@@ -1,10 +1,12 @@
 package got.cbtproject.gotcbt.model;
 
+import got.cbtproject.gotcbt.enums.RolePermission;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -20,10 +22,28 @@ public class Users extends BaseEntity {
     private int active;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "tbuser_role", joinColumns = @JoinColumn(name = "userid"))
-    private Set<Role> role;
+    private Set<Role> role= new HashSet<>();
+
+    @ElementCollection(fetch= FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name="role_permissions", joinColumns=@JoinColumn(name="userid"))
+    private Set<RolePermission> permissions = new HashSet<>();
     @Column(name = "dateCreated")
     private LocalDate dateCreated;
     @Column(name = "createdBy")
     private int createdBy;
 
+    public Users()
+    {
+
+    }
+    public Users(String userId, String password, int active, Set<Role> role, Set<RolePermission> permissions, LocalDate dateCreated, int createdBy) {
+        this.userId = userId;
+        this.password = password;
+        this.active = active;
+        this.role = role;
+        this.permissions = permissions;
+        this.dateCreated = dateCreated;
+        this.createdBy = createdBy;
+    }
 }

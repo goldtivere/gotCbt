@@ -1,0 +1,8 @@
+package got.cbtproject.gotcbt.enums;
+
+/**
+ * Created by Onuche Idoko on 10/6/16.
+ */
+public enum  Dimension {
+    TWO_DIMENSION, THREE_DIMENSION,
+}
