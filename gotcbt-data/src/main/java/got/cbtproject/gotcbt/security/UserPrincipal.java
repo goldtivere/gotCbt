@@ -1,18 +1,18 @@
 package got.cbtproject.gotcbt.security;
 
+import got.cbtproject.gotcbt.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import rc.bootsecurity.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
+    private final Users user;
 
-    public UserPrincipal(User user){
+    public UserPrincipal(Users user) {
         this.user = user;
     }
 
@@ -25,13 +25,11 @@ public class UserPrincipal implements UserDetails {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
-
         // Extract list of roles (ROLE_name)
         this.user.getRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
-
         return authorities;
     }
 
@@ -42,7 +40,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user.getUserId();
     }
 
     @Override
@@ -62,6 +60,8 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+
         return this.user.getActive() == 1;
+
     }
 }

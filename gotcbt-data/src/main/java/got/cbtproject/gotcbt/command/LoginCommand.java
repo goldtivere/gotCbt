@@ -12,4 +12,7 @@ public class LoginCommand {
 
     private String userId;
     private String password;
+    private String role;
+    private String permission;
+    private int active;
 }
