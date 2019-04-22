@@ -8,8 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("admin")
 public class AdminController {
 
-    @GetMapping("index")
+    @GetMapping("student")
+    public String student(){
+        return "admin/student";
+    }
+
+    @GetMapping("setting")
+    public String setting(){
+        return "admin/setting";
+    }
+
+    @GetMapping("subject")
+    public String subject(){
+        return "admin/subject";
+    }
+
+    @GetMapping("question")
     public String index(){
-        return "student";
+        return "admin/question";
     }
 }
