@@ -14,7 +14,7 @@
 <!-- Fragment #2 : Navbar contains nav links -->
 <div th:fragment="nav">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Boot Security</a>
+        <a class="navbar-brand" href="#">GotIT CBT</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -25,10 +25,16 @@
                     <a class="nav-link" href="#" th:href="@{~/profile/index}">Profile</a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{~/admin/index}">Admin</a>
+                    <a class="nav-link" href="#" th:href="@{~/admin/student}">Register Student</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{~/admin/subject}">Register Subject</a>
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{~/management/index}">Management</a>
+                    <a class="nav-link" href="#" th:href="@{~/admin/question}">Questions</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{~/admin/seting}">Settings</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
