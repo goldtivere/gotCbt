@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments.html :: headerfiles"></head>
+<head th:insert="fragments.html :: headerfiles">
+
+
+</head>
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <!-- Page content goes here -->
+<!--/*@thymesVar id="student" type="got.cbtproject.gotcbt.enums.Student"*/-->
 <div class="container">
-    <p class="pull-left">This is Admin\Student</p>
+    <p class="pull-left">Register Student\Student
+        <div class="row">
+    <label for="example">Registration Type </label>
+    <select class="form-control" name="example" id="example" onchange="showPIIDoc(this)">
+
+        <option th:each="stu : ${student}" th:value="${stu}" th:text="${stu}">
+        </option>
+    </select>
+
+    <div class="row" id="hidden_div" style="display:none;">
+        this is it brov
+    </div>
+
+
+
+
 </div>
+    <script>
+        function showPIIDoc(select)
+        {
+            if(select.value=="REGISTER")
+            {
+                document.getElementById('hidden_div').style.display="block";
+
+            }
+            else {
+                document.getElementById('hidden_div').style.display="none";
+            }
+        }
+    </script>
 </body>
 </html>

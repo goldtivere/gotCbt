@@ -1,6 +1,8 @@
 package got.cbtproject.gotcbt.controller;
 
+import got.cbtproject.gotcbt.enums.Student;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @GetMapping("student")
-    public String student(){
+    public String student(Model model){
+        model.addAttribute("student", Student.values());
         return "admin/student";
     }
 
