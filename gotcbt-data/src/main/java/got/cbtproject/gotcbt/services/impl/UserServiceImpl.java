@@ -1,5 +1,6 @@
-package got.cbtproject.gotcbt.services;
+package got.cbtproject.gotcbt.services.impl;
 
+import got.cbtproject.gotcbt.services.UsersService;
 import org.springframework.stereotype.Service;
 
 @Service

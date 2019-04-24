@@ -43,20 +43,17 @@
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" href="#" th:href="@{~/profile/index}">Profile</a>
                 </li>
-                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="tree" aria-expanded="false">Student</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" th:href="@{~/admin/student}">Register Student</a>
+                        <a class="dropdown-item" href="#" th:href="@{~/admin/class}">Register Class</a>
+                        <a class="dropdown-item" href="#" th:href="@{~/admin/subject}">Register Subject</a>
+                        <a class="dropdown-item" href="#" th:href="@{~/admin/question}">Questions</a>
                     </div>
-                </li>
-                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{~/admin/subject}">Register Subject</a>
-                </li>
-                <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="nav-item">
-                    <a class="nav-link" href="#" th:href="@{~/admin/question}">Questions</a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
                     <a class="nav-link" href="#" th:href="@{~/admin/setting}">Settings</a>

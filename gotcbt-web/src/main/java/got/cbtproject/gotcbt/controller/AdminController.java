@@ -27,7 +27,12 @@ public class AdminController {
     }
 
     @GetMapping("question")
-    public String index(){
+    public String indexQuestion(){
         return "admin/question";
+    }
+
+    @GetMapping("class")
+    public String classGet(){
+        return "admin/class";
     }
 }
