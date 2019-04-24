@@ -10,32 +10,56 @@
 <!--/*@thymesVar id="student" type="got.cbtproject.gotcbt.enums.Student"*/-->
 <div class="container">
     <p class="pull-left">Register Student\Student
-        <div class="row">
-    <label for="example">Registration Type </label>
-    <select class="form-control" name="example" id="example" onchange="showPIIDoc(this)">
+    <div class="row">
+        <label for="example">Registration Type </label>
+        <select class="form-control" name="example" id="example" onchange="showPIIDoc(this)">
 
-        <option th:each="stu : ${student}" th:value="${stu}" th:text="${stu}">
-        </option>
-    </select>
+            <option th:each="stu : ${student}" th:value="${stu}" th:text="${stu}">
+            </option>
+        </select>
 
-    <div class="row" id="hidden_div" style="display:none;">
-        this is it brov
+        <div class="row" id="hidden_div" style="display:none;">
+
+                <fieldset>
+                    <legend>Student Registration</legend>
+
+
+                        <div class="form-group">
+
+                            <input id="firstname" type="text" class="form-control"
+                                   required="required"
+                                   placeholder="First Name"/>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input id="middlename" type="text" class="form-control"
+
+                                   placeholder="Middle Name"/>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input id="lastname" type="text" class="form-control"
+                                   required="required"
+                                   placeholder="Last Name"/>
+                        </div>
+
+
+                </fieldset>
+            </div>
+            this is it brov
+        </div>
+
+
     </div>
-
-
-
-
-</div>
     <script>
-        function showPIIDoc(select)
-        {
-            if(select.value=="REGISTER")
-            {
-                document.getElementById('hidden_div').style.display="block";
+        function showPIIDoc(select) {
+            if (select.value == "REGISTER") {
+                document.getElementById('hidden_div').style.display = "block";
 
-            }
-            else {
-                document.getElementById('hidden_div').style.display="none";
+            } else {
+                document.getElementById('hidden_div').style.display = "none";
             }
         }
     </script>
