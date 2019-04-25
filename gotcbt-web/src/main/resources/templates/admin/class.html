@@ -7,7 +7,7 @@
 <body>
 <header th:insert="fragments.html :: nav"></header>
 <!-- Page content goes here -->
-<!--/*@thymesVar id="student" type="got.cbtproject.gotcbt.enums.Student"*/-->
+<!--/*@thymesVar id="classSchool" type="got.cbtproject.gotcbt.model.SchoolClass"*/-->
 <div class="container">
     <p class="pull-left">Student\Student Class</p>
     <div class="row">
@@ -15,7 +15,7 @@
             <button type="button" class="close" data-dismiss="alert"
                     aria-hidden="true">&times;
             </button>
-            Task Saved <strong> Successfully</strong>
+            School Group Saved <strong> Successfully</strong>
         </div>
         <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert"
@@ -35,18 +35,20 @@
             </button>
             <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input id="taskName" type="text" class="form-control"
-                       required="required"
-                       placeholder="School System Group"/>
+        <form th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text"  th:field="*{classType}" class="form-control"
+                           required="required"
+                           placeholder="School System Group"/>
+                </div>
+                <div class="float-right btn-send">
+                    <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                        Create
+                    </button>
+                </div>
             </div>
-            <div class="float-right btn-send">
-                <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                    Create
-                </button>
-            </div>
-        </div>
+        </form>
         <div class="col-md-6">
 
         </div>
