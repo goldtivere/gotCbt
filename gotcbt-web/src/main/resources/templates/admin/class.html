@@ -9,36 +9,53 @@
 <!-- Page content goes here -->
 <!--/*@thymesVar id="classSchool" type="got.cbtproject.gotcbt.model.SchoolClass"*/-->
 <div class="container">
-    <p class="pull-left">Student\Student Class</p>
     <div class="row">
-        <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;
-            </button>
-            School Group Saved <strong> Successfully</strong>
+        <div class="col-md-12">
+            <p class="pull-right">Student\Student Class</p>
         </div>
-        <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;
-            </button>
-            <strong>Unexpected error occurred !!! Please try later.</strong>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Group Saved <strong> Successfully</strong>
+            </div>
+            <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong></strong>
+                <input th:text="${msg}" />
+                <strong>Unexpected error occurred !!! Please try later.</strong>
+            </div>
+            <div th:if="${msg eq 'exist'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong>School Group Name already exist!</strong>
+            </div>
+            <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong><h6 th:text="${msgText}"/></strong>
+            </div>
+            <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
+            </div>
         </div>
-        <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;
-            </button>
-            <strong><h6 th:text="${msgText}"/></strong>
-        </div>
-        <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;
-            </button>
-            <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
-        </div>
-        <form th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}" method="post">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text"  th:field="*{classType}" class="form-control"
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}" method="post">
+
+                <div class="form-group pull-right">
+                    <input type="text" th:field="*{classType}" class="form-control pull-right"
                            required="required"
                            placeholder="School System Group"/>
                 </div>
@@ -47,16 +64,13 @@
                         Create
                     </button>
                 </div>
-            </div>
-        </form>
-        <div class="col-md-6">
 
+            </form>
         </div>
-
-
     </div>
+
     <div class="row">
-        <div class="row">
+        <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <table class="table table-bordered  table-striped table-responsive">
