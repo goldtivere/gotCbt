@@ -36,6 +36,7 @@ public class AdminController {
     @GetMapping("class")
     public String classGet(Model model) {
         model.addAttribute("schoolClass", new StudentClassCommand());
+        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         return "admin/class";
     }
 

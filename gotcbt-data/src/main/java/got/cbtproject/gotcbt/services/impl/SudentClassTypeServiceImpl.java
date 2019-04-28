@@ -8,6 +8,7 @@ import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,10 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
         }
        SchoolClass schoolSaved=schoolClassRepository.save(schoolClass1);
         return studentClassTypeCommand.convert(schoolSaved);
+    }
+
+    @Override
+    public List<SchoolClass> findByCreatedBy(int createdBy) {
+        return schoolClassRepository.findBy;
     }
 }
