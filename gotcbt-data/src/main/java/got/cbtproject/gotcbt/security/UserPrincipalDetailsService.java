@@ -19,7 +19,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-       // LoginCommand loginCommand = new LoginCommand();
+        // LoginCommand loginCommand = new LoginCommand();
         Users user = this.userRepository.findByUserId(s);
 //        Role role= new Role();
 //        user.getRole().forEach(r -> {
@@ -36,7 +36,9 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 //
 //        //get string value of role and permission
 
-
+        if (user == null) {
+            throw new RuntimeException("Username and Password mismatch");
+        }
         UserPrincipal userPrincipal = new UserPrincipal(user);
 
         return userPrincipal;

@@ -11,7 +11,17 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link th:href="@{~/fontawesome/css/all.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css"/>
+    <link th:href="@{/css/task.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/static/js/task.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/site.css}"/>
+    <!--<link rel="shortcut icon" href="/static/icons/favicon.ico">-->
+    <!--datetime picker-->
+    <link th:href="@{/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/static/js/moment-with-locales.js}"></script>
+    <script th:src="@{/static/js/bootstrap-datetimepicker.min.js}"></script>
+    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>

@@ -43,6 +43,7 @@ public class AdminController {
     @GetMapping("class")
     public String classGet(Model model) {
         model.addAttribute("schoolClass", new StudentClassCommand());
+        System.out.println(globalController.getLoginUser().getId() + " ****");
         model.addAttribute("tabVal", studentClassTypeService.findByCreatedBy(globalController.getLoginUser().getId()));
         return "admin/class";
     }

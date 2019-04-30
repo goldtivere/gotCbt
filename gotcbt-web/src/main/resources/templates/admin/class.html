@@ -77,26 +77,27 @@
                         <thead>
                         <tr class="btn-info">
                             <th>School Group</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:if="${#lists.isEmpty(allTask)}" class="btn-default">
+                        <tr th:if="${#lists.isEmpty(tabVal)}" class="btn-default">
                             <td colspan="5" align="center">No Saved Group Yet!!!</td>
                         </tr>
-                        <tr th:each="task : ${allTask}">
-                            <td th:text="${task.taskName}"></td>
+                        <tr th:each="val : ${tabVal}">
+                            <td th:text="${val.classType}"></td>
                             <td align="center">
-                                <a th:href="@{/task/edit/{id}(id=${task.id})}">
-                                            <span class="glyphicon glyphicon-edit" data-toggle="tooltip"
+                                <a th:href="@{/task/edit/{id}(id=${val.id})}">
+                                            <span class="fa fa-edit" data-toggle="tooltip"
                                                   data-placement="top" title="Edit Task"></span></a>
                                 &nbsp; &nbsp;
                                 <a data-toggle="modal" data-target="#modal-toTrash"
-                                   th:attr="data-target='#modal-toTrash'+${task.id}">
-                                            <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
+                                   th:attr="data-target='#modal-toTrash'+${val.id}">
+                                            <span class="fa fa-trash" data-toggle="tooltip"
                                                   data-placement="top" title="Sent to Trash Box"></span></a>
                             </td>
                             <!--start send to trash modal-->
-                            <div class="modal modal-toTrash" th:id="modal-toTrash+${task.id}">
+                            <div class="modal modal-toTrash" th:id="modal-toTrash+${val.id}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -113,7 +114,7 @@
                                             <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                 Cancel
                                             </button>
-                                            <a th:href="@{/task/trash/{id}(id=${task.id})}">
+                                            <a th:href="@{/task/trash/{id}(id=${val.id})}">
                                                 <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                         </div>
