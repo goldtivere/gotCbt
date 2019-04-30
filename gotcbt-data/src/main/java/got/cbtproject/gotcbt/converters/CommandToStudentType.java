@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CommandToStudentType implements Converter<StudentClassCommand, SchoolClass> {
-
     @Synchronized
     @Override
     public SchoolClass convert(StudentClassCommand source) {
@@ -19,6 +18,8 @@ public class CommandToStudentType implements Converter<StudentClassCommand, Scho
         final SchoolClass schoolClass= new SchoolClass();
         schoolClass.setId(source.getId());
         schoolClass.setClassType(source.getClassType());
+        schoolClass.setCreatedBy(source.getCreatedBy());
+        schoolClass.setDatecreated(source.getDateCreated());
 
         return schoolClass;
     }

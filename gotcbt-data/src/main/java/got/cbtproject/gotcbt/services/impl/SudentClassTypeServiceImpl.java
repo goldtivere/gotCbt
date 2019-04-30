@@ -25,7 +25,6 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
 
     @Override
     public StudentClassCommand save(StudentClassCommand schoolClass) {
-
         SchoolClass schoolClass1= commandToStudentType.convert(schoolClass);
         Optional<SchoolClass> schl = schoolClassRepository.findByClassType(schoolClass1.getClassType());
 
@@ -37,7 +36,7 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
     }
 
     @Override
-    public List<SchoolClass> findByCreatedBy(int createdBy) {
-        return schoolClassRepository.findBy;
+    public List<SchoolClass> findByCreatedBy(Long createdBy) {
+        return schoolClassRepository.findByCreatedBy(createdBy);
     }
 }

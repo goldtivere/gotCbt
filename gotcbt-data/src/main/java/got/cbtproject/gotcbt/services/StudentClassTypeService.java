@@ -8,5 +8,5 @@ import java.util.List;
 public interface StudentClassTypeService {
     StudentClassCommand save(StudentClassCommand schoolClass);
 
-    List<SchoolClass> findByCreatedBy(int createdBy);
+    List<SchoolClass> findByCreatedBy(Long createdBy);
 }

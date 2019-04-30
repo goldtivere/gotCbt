@@ -16,6 +16,8 @@ public class StudentClassTypeCommand implements Converter<SchoolClass, StudentCl
         final StudentClassCommand studentClassCommand= new StudentClassCommand();
         studentClassCommand.setId(source.getId());
         studentClassCommand.setClassType(source.getClassType());
+        studentClassCommand.setCreatedBy(source.getCreatedBy());
+        studentClassCommand.setDateCreated(source.getDatecreated());
 
         return studentClassCommand;
     }

@@ -14,9 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Setter
 public class StudentTypeClassController {
     private final StudentClassTypeService studentClassTypeService;
+    private final GlobalController globalController;
 
-    public StudentTypeClassController(StudentClassTypeService studentClassTypeService) {
+
+    public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController) {
         this.studentClassTypeService = studentClassTypeService;
+        this.globalController = globalController;
     }
 
     @PostMapping("/admin/schoolgroup/save")
@@ -24,12 +27,12 @@ public class StudentTypeClassController {
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
         try {
-            StudentClassCommand studentClassCommand1=studentClassTypeService.save(schoolClass);
+            schoolClass.setCreatedBy(globalController.getLoginUser().getId());
+            StudentClassCommand studentClassCommand1 = studentClassTypeService.save(schoolClass);
             redirectAttributes.addFlashAttribute("msg", "success");
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("msg", "exist");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 //            e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "fail");
 //            logger.error("save: " + e.getMessage());

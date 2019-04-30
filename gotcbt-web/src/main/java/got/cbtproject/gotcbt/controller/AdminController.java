@@ -2,6 +2,7 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.enums.Student;
+import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+    private final StudentClassTypeService studentClassTypeService;
+    private final GlobalController globalController;
 
+    public AdminController(StudentClassTypeService studentClassTypeService, GlobalController globalController) {
+        this.studentClassTypeService = studentClassTypeService;
+        this.globalController = globalController;
+    }
 
     @GetMapping("student")
     public String student(Model model) {
@@ -36,7 +43,7 @@ public class AdminController {
     @GetMapping("class")
     public String classGet(Model model) {
         model.addAttribute("schoolClass", new StudentClassCommand());
-        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
+        model.addAttribute("tabVal", studentClassTypeService.findByCreatedBy(globalController.getLoginUser().getId()));
         return "admin/class";
     }
 

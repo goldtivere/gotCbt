@@ -61,11 +61,11 @@ public class DbInit implements CommandLineRunner {
 //        permissions1.add(RolePermission.READ);
 //        List<RolePermission> permissions2 = new ArrayList<>();
 //        permissions2.add(RolePermission.READ);
-        Users dan = new Users("123", passwordEncoder.encode("2345"), 1, roles, permissions, LocalDate.now(), 1);
+        Users dan = new Users("123", passwordEncoder.encode("2345"), 1, roles, permissions, LocalDate.now(), Long.valueOf(1));
 
-        Users dans = new Users("234", passwordEncoder.encode("567"), 1, roles1, permissions1, LocalDate.now(), 2);
+        Users dans = new Users("234", passwordEncoder.encode("567"), 1, roles1, permissions1, LocalDate.now(), Long.valueOf(2));
 
-        Users danss = new Users("2134", passwordEncoder.encode("2345"), 1, roles2, permissions2, LocalDate.now(), 1);
+        Users danss = new Users("2134", passwordEncoder.encode("2345"), 1, roles2, permissions2, LocalDate.now(), Long.valueOf(1));
 
         List<Users> users = Arrays.asList(dan, dans, danss);
 

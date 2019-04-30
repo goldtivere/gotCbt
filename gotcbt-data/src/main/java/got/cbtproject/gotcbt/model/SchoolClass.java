@@ -22,15 +22,15 @@ public class SchoolClass extends BaseEntity {
     private String classType;
 
     @Column(name = "createdBy")
-    private int createdBy;
+    private Long createdBy;
 
-    @Column(name = "classType")
+    @Column(name = "datecreated")
     private LocalDate datecreated;
 
     @Column(name = "updatedBy")
-    private int updatedBy;
+    private Long updatedBy;
 
-    @Column(name = "classType")
+    @Column(name = "dateupdated")
     private LocalDate dateupdated;
 
 

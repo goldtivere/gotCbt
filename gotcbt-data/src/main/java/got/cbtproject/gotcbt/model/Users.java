@@ -35,14 +35,14 @@ public class Users extends BaseEntity {
 //    @Column(name = "dateCreated")
     private LocalDate dateCreated;
     @Column(name = "createdBy")
-    private int createdBy;
+    private Long createdBy;
 
     public Users()
     {
 
     }
 
-    public Users(String userId, String password, int active, Set<Role> role, Set<RolePermission> permissions, LocalDate dateCreated, int createdBy) {
+    public Users(String userId, String password, int active, Set<Role> role, Set<RolePermission> permissions, LocalDate dateCreated, Long createdBy) {
         this.userId = userId;
         this.password = password;
         this.active = active;
