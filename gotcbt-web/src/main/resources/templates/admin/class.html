@@ -82,14 +82,18 @@
                         </thead>
                         <tbody>
                         <tr th:if="${#lists.isEmpty(tabVal)}" class="btn-default">
-                            <td colspan="5" align="center">No Saved Group Yet!!!</td>
+                            <td colspan="2" align="center">No Saved Group Yet!!!</td>
                         </tr>
                         <tr th:each="val : ${tabVal}">
                             <td th:text="${val.classType}"></td>
                             <td align="center">
-                                <a th:href="@{/task/edit/{id}(id=${val.id})}">
+                                <!--<a th:href="@{/task/edit/{id}(id=${val.id})}">-->
+                                            <!--<span class="fa fa-edit" data-toggle="tooltip"-->
+                                                  <!--data-placement="top" title="Edit Task"></span></a>-->
+                                <a data-toggle="modal" data-target="#modal-toEdit"
+                                   th:attr="data-target='#modal-toEdit'+${val.id}">
                                             <span class="fa fa-edit" data-toggle="tooltip"
-                                                  data-placement="top" title="Edit Task"></span></a>
+                                                  data-placement="top" title="Edit"></span></a>
                                 &nbsp; &nbsp;
                                 <a data-toggle="modal" data-target="#modal-toTrash"
                                    th:attr="data-target='#modal-toTrash'+${val.id}">
@@ -104,7 +108,7 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">×
                                             </button>
-                                            <h3 id="myModalLabel">Delete Confirmation</h3>
+                                            <h3 id="myModal">Delete Confirmation</h3>
                                         </div>
                                         <div class="modal-body">
                                             <p class="error-text"><strong>Are you sure you want to
@@ -124,6 +128,36 @@
                                 <!-- /.modal-dialog -->
                             </div>
                             <!--end send to trash modal-->
+
+                            <!--start send to edit modal-->
+                            <div class="modal modal-toEdit" th:id="modal-toEdit+${val.id}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                            <h3 id="myModalLabel">Edit Record</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" th:value="${val.classType}" class="form-control"
+                                                   required="required"
+                                                   placeholder="School System Group"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                                Cancel
+                                            </button>
+                                            <a th:href="@{/task/trash/{id}(id=${val.id})}">
+                                                <span class="btn btn-danger" value="delete">Delete</span></a>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!--end send to edit modal-->
                         </tr>
 
                         </tbody>
