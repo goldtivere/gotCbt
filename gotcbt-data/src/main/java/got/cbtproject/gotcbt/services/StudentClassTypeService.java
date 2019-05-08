@@ -9,4 +9,6 @@ public interface StudentClassTypeService {
     StudentClassCommand save(StudentClassCommand schoolClass);
 
     List<SchoolClass> findByCreatedBy(Long createdBy);
+
+    SchoolClass findById(Long id);
 }

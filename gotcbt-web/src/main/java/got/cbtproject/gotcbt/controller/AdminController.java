@@ -2,11 +2,13 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.enums.Student;
+import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("admin")
@@ -38,6 +40,13 @@ public class AdminController {
     @GetMapping("question")
     public String indexQuestion() {
         return "admin/question";
+    }
+
+    @GetMapping("findid")
+    @ResponseBody
+    public SchoolClass findid(Model model,Long id) {
+        model.addAttribute("class1", new StudentClassCommand());
+        return studentClassTypeService.findById(id);
     }
 
     @GetMapping("class")

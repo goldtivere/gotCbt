@@ -39,4 +39,15 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
     public List<SchoolClass> findByCreatedBy(Long createdBy) {
         return schoolClassRepository.findByCreatedBy(createdBy);
     }
+
+    @Override
+    public SchoolClass findById(Long id) {
+        Optional<SchoolClass> schl = schoolClassRepository.findById(id);
+
+        if (!schl.isPresent()) {
+            throw new RuntimeException("Id doesnt exist!");
+        }
+
+        return schl.get();
+    }
 }
