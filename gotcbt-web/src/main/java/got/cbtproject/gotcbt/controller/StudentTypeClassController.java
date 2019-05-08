@@ -6,7 +6,6 @@ import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,20 +51,15 @@ public class StudentTypeClassController {
         return "redirect:/admin/class";
     }
 
-    @RequestMapping(value = "/task/{operation}/{id}", method = RequestMethod.GET)
-    public String todoOperation(@PathVariable("operation") String operation,
-                                @PathVariable("id") Long id, final RedirectAttributes redirectAttributes,
-                                Model model) {
-        if (operation.equals("edit")) {
-            SchoolClass editTask = studentClassTypeService.findById(id);
-            if (editTask != null) {
-                model.addAttribute("editTask", editTask);
-                return "edit";
-            } else {
-                redirectAttributes.addFlashAttribute("msg", "notfound");
-            }
-        }
-        return "redirect:/home";
+    @GetMapping("/admin/update/{id}")
+    @ResponseBody
+    public SchoolClass todoOperation(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+
+        return studentClassTypeService.findById(id);
+//            if (id == null || id.equals(null)) {
+//                redirectAttributes.addFlashAttribute("msg", "notfound");
+//            }
+
     }
 
 }
