@@ -3,21 +3,26 @@ package got.cbtproject.gotcbt.controller;
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.enums.Student;
 import got.cbtproject.gotcbt.model.SchoolClass;
+import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("admin")
 public class AdminController {
     private final StudentClassTypeService studentClassTypeService;
+    private final SchoolClassRepository schoolClassRepository;
     private final GlobalController globalController;
 
-    public AdminController(StudentClassTypeService studentClassTypeService, GlobalController globalController) {
+    public AdminController(StudentClassTypeService studentClassTypeService, SchoolClassRepository schoolClassRepository, GlobalController globalController) {
         this.studentClassTypeService = studentClassTypeService;
+        this.schoolClassRepository = schoolClassRepository;
         this.globalController = globalController;
     }
 
@@ -50,10 +55,12 @@ public class AdminController {
     }
 
     @GetMapping("class")
-    public String classGet(Model model) {
+    public String classGet(Model model,@RequestParam(defaultValue = "0") int page) {
+       // PageRequest pageRequest=;
         model.addAttribute("schoolClass", new StudentClassCommand());
-        System.out.println(globalController.getLoginUser().getId() + " ****");
-        model.addAttribute("tabVal", studentClassTypeService.findByCreatedBy(globalController.getLoginUser().getId()));
+        model.addAttribute("updateClass", new StudentClassCommand());
+        model.addAttribute("tabVal",
+                schoolClassRepository.findByCreatedBy(globalController.getLoginUser().getId(),new PageRequest(page,4)));
         return "admin/class";
     }
 

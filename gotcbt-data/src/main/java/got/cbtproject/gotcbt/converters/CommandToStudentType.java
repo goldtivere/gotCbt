@@ -18,6 +18,8 @@ public class CommandToStudentType implements Converter<StudentClassCommand, Scho
         final SchoolClass schoolClass= new SchoolClass();
         schoolClass.setId(source.getId());
         schoolClass.setClassType(source.getClassType());
+        schoolClass.setUpdatedBy(source.getUpdatedBy());
+        schoolClass.setDateupdated(source.getDateupdated());
         schoolClass.setCreatedBy(source.getCreatedBy());
         schoolClass.setDatecreated(source.getDateCreated());
 

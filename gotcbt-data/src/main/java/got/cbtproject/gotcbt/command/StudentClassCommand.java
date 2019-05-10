@@ -15,4 +15,6 @@ public class StudentClassCommand {
     private String classType;
     private Long createdBy;
     private LocalDate dateCreated;
+    private Long updatedBy;
+    private LocalDate dateupdated;
 }

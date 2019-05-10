@@ -139,35 +139,43 @@
 
                         </tbody>
                     </table>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item" th:each="i : ${#numbers.sequence(0,tabVal.size()-1)}">
+                            <a th:text="${i}" class="nav-link"></a>
+                        </li>
+                    </ul>
+                    <hr/>
+
                     <!--start send to edit modal-->
                     <div class="myForm">
-                        <form th:object="${schoolClass}" th:action="@{/admin/update}" method="post">
-                        <div class="modal fade" id="trueModal" tabindex="-1"
-                             role="dialog" aria-labelledby="trueModal" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 id="myModalLabel">Edit Record</h3>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">×
-                                        </button>
+                        <form th:object="${updateClass}" th:action="@{/admin/schoolgroup/update}" method="post">
+                            <div class="modal fade" id="trueModal" tabindex="-1"
+                                 role="dialog" aria-labelledby="trueModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 id="myModalLabel">Edit Record</h3>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">×
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="id" th:field="*{id}"/>
+                                            <input type="text" id="classType" th:field="*{classType}"
+                                                   class="form-control pull-right"
+                                                   required="required"
+                                                   placeholder="School System Group"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn " aria-hidden="true">
+                                                Update
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-
-                                        <input type="text" id="classType" class="form-control pull-right"
-                                               required="required"
-                                               placeholder="School System Group"/>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn " aria-hidden="true">
-                                            Update
-                                        </button>
-                                    </div>
+                                    <!-- /.modal-content -->
                                 </div>
-                                <!-- /.modal-content -->
+                                <!-- /.modal-dialog -->
                             </div>
-                            <!-- /.modal-dialog -->
-                        </div>
                         </form>
                     </div>
                     <!--end send to edit modal-->

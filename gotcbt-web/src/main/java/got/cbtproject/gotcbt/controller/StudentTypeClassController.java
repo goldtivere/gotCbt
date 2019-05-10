@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @Getter
 @Setter
@@ -16,28 +18,36 @@ public class StudentTypeClassController {
     private final StudentClassTypeService studentClassTypeService;
     private final GlobalController globalController;
 
-
     public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController) {
         this.studentClassTypeService = studentClassTypeService;
         this.globalController = globalController;
     }
 
     @PostMapping("/admin/schoolgroup/{operation}")
-    public String saveTodo(@ModelAttribute("schoolClass") StudentClassCommand schoolClass,@PathVariable("operation") String operation,
+    public String saveTodo(@ModelAttribute("schoolClass") StudentClassCommand schoolClass,@ModelAttribute("updateClass") StudentClassCommand updateClass, @PathVariable("operation") String operation,
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
         try {
-            if(operation.equals("save")) {
+            if (operation.equals("save")) {
                 if (!schoolClass.equals("") || schoolClass != null) {
                     schoolClass.setCreatedBy(globalController.getLoginUser().getId());
+                    schoolClass.setDateCreated(LocalDate.now());
                     StudentClassCommand studentClassCommand1 = studentClassTypeService.save(schoolClass);
                     redirectAttributes.addFlashAttribute("msg", "success");
                 } else {
                     redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
                 }
-            }
-            else
-            {
+            } else if (operation.equals("update")) {
+                if (!updateClass.equals("") || updateClass != null) {
+                    updateClass.setCreatedBy(globalController.getLoginUser().getId());
+                    updateClass.setUpdatedBy(globalController.getLoginUser().getId());
+                    updateClass.setDateupdated(LocalDate.now());
+                    StudentClassCommand studentClassCommand2 = studentClassTypeService.save(updateClass);
+                    redirectAttributes.addFlashAttribute("msg", "success");
+                } else {
+                    redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
+                }
+            } else {
                 redirectAttributes.addFlashAttribute("msg", "Invalid Command, Please try again!!");
             }
         } catch (RuntimeException e) {

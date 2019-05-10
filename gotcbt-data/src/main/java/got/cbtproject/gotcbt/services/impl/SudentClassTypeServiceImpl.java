@@ -8,7 +8,6 @@ import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,10 +34,11 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
         return studentClassTypeCommand.convert(schoolSaved);
     }
 
-    @Override
-    public List<SchoolClass> findByCreatedBy(Long createdBy) {
-        return schoolClassRepository.findByCreatedBy(createdBy);
-    }
+//
+//    @Override
+//    public List<SchoolClass> findByCreatedBy(Long createdBy, PageRequest pageRequest) {
+//        return schoolClassRepository.findByCreatedBy(createdBy,  pageRequest);
+//    }
 
     @Override
     public SchoolClass findById(Long id) {

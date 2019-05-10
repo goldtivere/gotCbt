@@ -3,12 +3,12 @@ package got.cbtproject.gotcbt.services;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DbInit {
-    //implements CommandLineRunner
+public class DbInit  {
+//implements CommandLineRunner
 //    private UserRepository userRepository;
 //    private PasswordEncoder passwordEncoder;
 //
-//    public DbInit(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+//    public DbInit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 //        this.userRepository = userRepository;
 //        this.passwordEncoder = passwordEncoder;
 //    }

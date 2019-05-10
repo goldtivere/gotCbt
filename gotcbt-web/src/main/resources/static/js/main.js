@@ -4,6 +4,7 @@ $(document).ready(function () {
         var href = $(this).attr('href');
 
         $.get(href, function (schoolClass, status) {
+            $('.myForm #id').val(schoolClass.id);
             $('.myForm #classType').val(schoolClass.classType);
         })
         $('.myForm #trueModal').modal();
