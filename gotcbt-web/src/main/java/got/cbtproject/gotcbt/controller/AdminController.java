@@ -61,6 +61,7 @@ public class AdminController {
         model.addAttribute("updateClass", new StudentClassCommand());
         model.addAttribute("tabVal",
                 schoolClassRepository.findByCreatedBy(globalController.getLoginUser().getId(),new PageRequest(page,4)));
+        model.addAttribute("currentPage", page);
         return "admin/class";
     }
 
