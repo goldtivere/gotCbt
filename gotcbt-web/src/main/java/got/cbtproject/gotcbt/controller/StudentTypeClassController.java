@@ -2,6 +2,7 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.model.SchoolClass;
+import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,14 +18,16 @@ import java.time.LocalDate;
 public class StudentTypeClassController {
     private final StudentClassTypeService studentClassTypeService;
     private final GlobalController globalController;
+    private final SchoolClassRepository schoolClassRepository;
 
-    public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController) {
+    public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController, SchoolClassRepository schoolClassRepository) {
         this.studentClassTypeService = studentClassTypeService;
         this.globalController = globalController;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @PostMapping("/admin/schoolgroup/{operation}")
-    public String saveTodo(@ModelAttribute("schoolClass") StudentClassCommand schoolClass,@ModelAttribute("updateClass") StudentClassCommand updateClass, @PathVariable("operation") String operation,
+    public String saveTodo(@ModelAttribute("schoolClass") StudentClassCommand schoolClass, @ModelAttribute("updateClass") StudentClassCommand updateClass, @PathVariable("operation") String operation,
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
         try {
@@ -39,7 +42,7 @@ public class StudentTypeClassController {
                 }
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    updateClass.setCreatedBy(globalController.getLoginUser().getId());
+                    schoolClass.setCreatedBy(globalController.getLoginUser().getId());
                     updateClass.setUpdatedBy(globalController.getLoginUser().getId());
                     updateClass.setDateupdated(LocalDate.now());
                     StudentClassCommand studentClassCommand2 = studentClassTypeService.save(updateClass);
@@ -70,6 +73,17 @@ public class StudentTypeClassController {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //            }
 
+    }
+
+    @GetMapping("/admin/schoolGroup/delete/{id}")
+    public String delete(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+
+
+        if (id == null || id.equals(null)) {
+            redirectAttributes.addFlashAttribute("msg", "Invalid Id");
+        }
+        schoolClassRepository.deleteById(id);
+        return "redirect:/admin/class";
     }
 
 }
