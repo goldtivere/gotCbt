@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +36,4 @@ public class StudentClassDetails extends BaseEntity{
     @Column(name = "is_active")
     private int active;
 
-    @Column(name = "created_on")
-    private LocalDate localDate;
-
-    @Column(name = "updatedon")
-    private LocalDate updatedon;
-
-    @Column(name = "created_by")
-    private int createdBy;
-
-    @Column(name = "updated_by")
-    private int updatedBy;
 }

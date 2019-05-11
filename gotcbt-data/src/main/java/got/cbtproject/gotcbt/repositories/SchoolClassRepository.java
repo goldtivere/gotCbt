@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface SchoolClassRepository extends CrudRepository<SchoolClass, Long> {
     Optional<SchoolClass> findByClassType(String schoolClass);
-    List<SchoolClass> findByCreatedBy(Long createdBy, Pageable pageable);
+    List<SchoolClass> findByCreatedByAndIsdeleted(Long createdBy,boolean isdeleted, Pageable pageable);
 
 }

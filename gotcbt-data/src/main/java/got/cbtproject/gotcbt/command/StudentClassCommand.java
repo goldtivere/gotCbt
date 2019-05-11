@@ -17,4 +17,7 @@ public class StudentClassCommand {
     private LocalDate dateCreated;
     private Long updatedBy;
     private LocalDate dateupdated;
+    private  LocalDate dateDeleted;
+    private Long deletedBy;
+    private boolean isdeleted;
 }

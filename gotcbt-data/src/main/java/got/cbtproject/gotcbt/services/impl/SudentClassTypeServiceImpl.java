@@ -34,6 +34,15 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
         return studentClassTypeCommand.convert(schoolSaved);
     }
 
+    @Override
+    public StudentClassCommand delete(StudentClassCommand schoolClass) {
+        SchoolClass schoolClass1= commandToStudentType.convert(schoolClass);
+        Optional<SchoolClass> schl = schoolClassRepository.findByClassType(schoolClass1.getClassType());
+
+        SchoolClass schoolSaved=schoolClassRepository.save(schoolClass1);
+        return studentClassTypeCommand.convert(schoolSaved);
+    }
+
 //
 //    @Override
 //    public List<SchoolClass> findByCreatedBy(Long createdBy, PageRequest pageRequest) {

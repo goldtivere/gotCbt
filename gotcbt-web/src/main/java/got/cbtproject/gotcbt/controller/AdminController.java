@@ -49,18 +49,18 @@ public class AdminController {
 
     @GetMapping("findid")
     @ResponseBody
-    public SchoolClass findid(Model model,Long id) {
+    public SchoolClass findid(Model model, Long id) {
         model.addAttribute("class1", new StudentClassCommand());
         return studentClassTypeService.findById(id);
     }
 
     @GetMapping("class")
-    public String classGet(Model model,@RequestParam(defaultValue = "0") int page) {
-       // PageRequest pageRequest=;
+    public String classGet(Model model, @RequestParam(defaultValue = "0") int page) {
+        // PageRequest pageRequest=;
         model.addAttribute("schoolClass", new StudentClassCommand());
         model.addAttribute("updateClass", new StudentClassCommand());
         model.addAttribute("tabVal",
-                schoolClassRepository.findByCreatedBy(globalController.getLoginUser().getId(),new PageRequest(page,4)));
+                schoolClassRepository.findByCreatedByAndIsdeleted(globalController.getLoginUser().getId(), false, new PageRequest(page, 4)));
         model.addAttribute("currentPage", page);
         return "admin/class";
     }

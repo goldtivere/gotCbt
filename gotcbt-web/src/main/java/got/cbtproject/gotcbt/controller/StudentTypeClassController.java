@@ -1,6 +1,7 @@
 package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
+import got.cbtproject.gotcbt.converters.StudentClassTypeCommand;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
@@ -31,22 +32,26 @@ public class StudentTypeClassController {
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
         try {
+            StudentClassTypeCommand studentClassTypeCommand = new StudentClassTypeCommand();
             if (operation.equals("save")) {
                 if (!schoolClass.equals("") || schoolClass != null) {
                     schoolClass.setCreatedBy(globalController.getLoginUser().getId());
                     schoolClass.setDateCreated(LocalDate.now());
+                    schoolClass.setIsdeleted(false);
                     StudentClassCommand studentClassCommand1 = studentClassTypeService.save(schoolClass);
                     redirectAttributes.addFlashAttribute("msg", "success");
                 } else {
-                    redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
+                    redirectAttributes.addFlashAttribute("msg", "Invalid Id");
                 }
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    schoolClass.setCreatedBy(globalController.getLoginUser().getId());
+                    String classType= updateClass.getClassType();
+                    updateClass = studentClassTypeCommand.convert(studentClassTypeService.findById(updateClass.getId()));
+                    updateClass.setClassType(classType);
                     updateClass.setUpdatedBy(globalController.getLoginUser().getId());
                     updateClass.setDateupdated(LocalDate.now());
                     StudentClassCommand studentClassCommand2 = studentClassTypeService.save(updateClass);
-                    redirectAttributes.addFlashAttribute("msg", "success");
+                    redirectAttributes.addFlashAttribute("msg", "update");
                 } else {
                     redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
                 }
@@ -77,12 +82,19 @@ public class StudentTypeClassController {
 
     @GetMapping("/admin/schoolGroup/delete/{id}")
     public String delete(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
-
-
+        StudentClassTypeCommand studentClassTypeCommand = new StudentClassTypeCommand();
+        StudentClassCommand updateClass = new StudentClassCommand();
         if (id == null || id.equals(null)) {
-            redirectAttributes.addFlashAttribute("msg", "Invalid Id");
+            redirectAttributes.addFlashAttribute("msg", "active");
         }
-        schoolClassRepository.deleteById(id);
+
+        updateClass = studentClassTypeCommand.convert(studentClassTypeService.findById(id));
+        updateClass.setDeletedBy(globalController.getLoginUser().getId());
+        updateClass.setDateDeleted(LocalDate.now());
+        updateClass.setIsdeleted(true);
+        studentClassTypeService.delete(updateClass);
+        redirectAttributes.addFlashAttribute("msg", "delete");
+
         return "redirect:/admin/class";
     }
 

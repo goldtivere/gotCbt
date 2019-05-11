@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,23 +32,21 @@ public class Users extends BaseEntity {
 //
 //    private String permissions = "";
 //    @Column(name = "dateCreated")
-    private LocalDate dateCreated;
-    @Column(name = "createdBy")
-    private Long createdBy;
+//    private LocalDate dateCreated;
+//    @Column(name = "createdBy")
+//    private Long createdBy;
 
     public Users()
     {
 
     }
 
-    public Users(String userId, String password, int active, Set<Role> role, Set<RolePermission> permissions, LocalDate dateCreated, Long createdBy) {
+    public Users(String userId, String password, int active, Set<Role> role, Set<RolePermission> permissions) {
         this.userId = userId;
         this.password = password;
         this.active = active;
         this.role = role;
         this.permissions = permissions;
-        this.dateCreated = dateCreated;
-        this.createdBy = createdBy;
     }
 
     //    public List<String> getRoleList(){

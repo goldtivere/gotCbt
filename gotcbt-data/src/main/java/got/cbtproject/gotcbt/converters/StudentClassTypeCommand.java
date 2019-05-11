@@ -20,6 +20,9 @@ public class StudentClassTypeCommand implements Converter<SchoolClass, StudentCl
         studentClassCommand.setDateupdated(source.getDateupdated());
         studentClassCommand.setCreatedBy(source.getCreatedBy());
         studentClassCommand.setDateCreated(source.getDatecreated());
+        studentClassCommand.setDeletedBy(source.getDeletedBy());
+        studentClassCommand.setDateDeleted(source.getDateDeleted());
+        studentClassCommand.setIsdeleted(source.isIsdeleted());
 
         return studentClassCommand;
     }

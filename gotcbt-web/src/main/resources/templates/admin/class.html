@@ -24,6 +24,18 @@
                 </button>
                 School Group Saved <strong> Successfully</strong>
             </div>
+            <div th:if="${msg eq 'update'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Group <strong> update Successful!!</strong>
+            </div>
+            <div th:if="${msg eq 'delete'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Group delete <strong> Successful!!</strong>
+            </div>
             <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
