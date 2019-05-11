@@ -47,6 +47,12 @@ public class AdminController {
         return "admin/question";
     }
 
+    @GetMapping("department")
+    public String department(Model model) {
+        model.addAttribute("dept",schoolClassRepository.findByIsdeleted(false));
+        return "admin/department";
+    }
+
     @GetMapping("findid")
     @ResponseBody
     public SchoolClass findid(Model model, Long id) {
@@ -60,7 +66,7 @@ public class AdminController {
         model.addAttribute("schoolClass", new StudentClassCommand());
         model.addAttribute("updateClass", new StudentClassCommand());
         model.addAttribute("tabVal",
-                schoolClassRepository.findByCreatedByAndIsdeleted(globalController.getLoginUser().getId(), false, new PageRequest(page, 4)));
+                schoolClassRepository.findByIsdeleted(false, new PageRequest(page, 4)));
         model.addAttribute("currentPage", page);
         return "admin/class";
     }

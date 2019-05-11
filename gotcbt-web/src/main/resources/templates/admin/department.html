@@ -66,17 +66,24 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}" method="post">
-
+            <form  method="post">
+                <!--th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}"-->
                 <div class="form-group">
-                    <label>Department:</label>
-                    <input type="text" th:field="*{classType}" class="form-control pull-right"
+                    <label for="names">Select Department:</label>
+                    <input list="names" th:required="true"  class="form-control" id="nameinput" required="required">  </input>
+                    <datalist id="names" >
+                        <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.id}">
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <label>Add Class:</label>
+                    <input type="text"  class="form-control pull-right"
                            required="required"
-                           placeholder="Add Department"/>
+                           placeholder="Add Class"/>
                 </div>
                 <div class="float-right btn-send">
                     <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                        Create
+                        Create Class
                     </button>
                 </div>
 
@@ -135,7 +142,8 @@
                                                 <button class="btn " data-dismiss="modal" aria-hidden="true">
                                                     Cancel
                                                 </button>
-                                                <a th:href="@{/admin/schoolGroup/delete/{id}(id=${val.id})}">
+                                                <a >
+                                                    <!--th:href="@{/admin/schoolGroup/delete/{id}(id=${val.id})}"-->
                                                     <span class="btn btn-danger" value="delete">Delete</span></a>
 
                                             </div>
@@ -155,14 +163,15 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item" th:each="i : ${#numbers.sequence(0,tabVal.size()-1)}">
                             <a th:href="@{/admin/class/(page=${i})}" th:text="${i}" class="nav-link"
-                            th:classappend="${currentPage}==${i}?'active':'' "></a>
+                               th:classappend="${currentPage}==${i}?'active':'' "></a>
                         </li>
                     </ul>
                     <hr/>
 
                     <!--start send to edit modal-->
                     <div class="myForm">
-                        <form th:object="${updateClass}" th:action="@{/admin/schoolgroup/update}" method="post">
+                        <form  method="post">
+                            <!--th:object="${updateClass}" th:action="@{/admin/schoolgroup/update}"-->
                             <div class="modal fade" id="trueModal" tabindex="-1"
                                  role="dialog" aria-labelledby="trueModal" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -174,8 +183,8 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" id="id" th:field="*{id}"/>
-                                            <input type="text" id="classType" th:field="*{classType}"
+                                            <input type="hidden" id="id" />
+                                            <input type="text" id="classType"
                                                    class="form-control pull-right"
                                                    required="required"
                                                    placeholder="School System Group"/>

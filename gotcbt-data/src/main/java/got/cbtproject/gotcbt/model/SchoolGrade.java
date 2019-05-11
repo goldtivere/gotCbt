@@ -20,7 +20,7 @@ import java.util.List;
 public class SchoolGrade extends BaseEntity {
 
     @OneToMany
-    @Column(name = "school_grade")
+    @Column(name = "schoolDeparment")
     private List<SchoolClass> schoolClass;
     @Column(name = "school_class")
     private String grade;
