@@ -4,11 +4,13 @@ import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommandToStudentType implements Converter<StudentClassCommand, SchoolClass> {
     @Synchronized
+    @Nullable
     @Override
     public SchoolClass convert(StudentClassCommand source) {
         if(source == null)

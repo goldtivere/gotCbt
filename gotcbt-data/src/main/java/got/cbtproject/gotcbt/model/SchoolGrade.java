@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class SchoolGrade extends BaseEntity {
 
     @OneToMany
     @Column(name = "schoolDeparment")
-    private List<SchoolClass> schoolClass;
+    private List<SchoolClass> schoolClass= new ArrayList<>();
     @Column(name = "school_class")
     private String grade;
 }

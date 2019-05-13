@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,8 +27,8 @@ public class Subject  extends BaseEntity{
     private List<SchoolGrade> schoolGrade;
     @OneToMany
     @Column(name = "term")
-    private List<SchoolTerm> term;
+    private List<SchoolTerm> term= new ArrayList<>();
     @OneToMany
     @Column(name = "year")
-    private List<SchoolYear> year;
+    private List<SchoolYear> year= new ArrayList<>();
 }

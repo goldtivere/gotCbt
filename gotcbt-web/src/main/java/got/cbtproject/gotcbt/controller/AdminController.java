@@ -1,9 +1,11 @@
 package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
+import got.cbtproject.gotcbt.command.StudentGradeCommand;
 import got.cbtproject.gotcbt.enums.Student;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
+import got.cbtproject.gotcbt.repositories.SchoolGradeRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminController {
     private final StudentClassTypeService studentClassTypeService;
     private final SchoolClassRepository schoolClassRepository;
+    private final SchoolGradeRepository schoolGradeRepository;
     private final GlobalController globalController;
 
-    public AdminController(StudentClassTypeService studentClassTypeService, SchoolClassRepository schoolClassRepository, GlobalController globalController) {
+    public AdminController(StudentClassTypeService studentClassTypeService, SchoolClassRepository schoolClassRepository, SchoolGradeRepository schoolGradeRepository, GlobalController globalController) {
         this.studentClassTypeService = studentClassTypeService;
         this.schoolClassRepository = schoolClassRepository;
+        this.schoolGradeRepository = schoolGradeRepository;
         this.globalController = globalController;
     }
 
@@ -48,8 +52,11 @@ public class AdminController {
     }
 
     @GetMapping("department")
-    public String department(Model model) {
+    public String department(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("classAtt", new StudentGradeCommand());
         model.addAttribute("dept",schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("tabVal1",
+                schoolGradeRepository.findByIsdeleted(false, new PageRequest(page, 4)));
         return "admin/department";
     }
 

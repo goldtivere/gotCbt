@@ -56,28 +56,35 @@
                 </button>
                 <strong><h6 th:text="${msgText}"/></strong>
             </div>
-            <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+            <div th:if="${msg eq 'classVal'}" class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
-                <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
+                <strong>Please select Department!!!</strong>
             </div>
+            <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">&times;
+            </button>
+            <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
+        </div>
+
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form  method="post">
-                <!--th:object="${schoolClass}" th:action="@{/admin/schoolgroup/save}"-->
+            <form  th:object="${classAtt}" th:action="@{/admin/Class/save}" method="post">
+
                 <div class="form-group">
                     <label for="names">Select Department:</label>
-                    <input list="names" th:required="true"  class="form-control" id="nameinput" required="required">  </input>
+                    <input list="names" th:required="true"  class="form-control" id="grade" th:field="*{classGrade}" required="required">  </input>
                     <datalist id="names" >
                         <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.id}">
                     </datalist>
                 </div>
                 <div class="form-group">
                     <label>Add Class:</label>
-                    <input type="text"  class="form-control pull-right"
+                    <input type="text"  class="form-control pull-right" th:field="*{grade}"
                            required="required"
                            placeholder="Add Class"/>
                 </div>
@@ -103,13 +110,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:if="${#lists.isEmpty(tabVal)}" class="btn-default">
+                        <tr th:if="${#lists.isEmpty(tabVal1)}" class="btn-default">
                             <td colspan="2" align="center">No Saved Group Yet!!!</td>
                         </tr>
-                        <div th:each="val : ${tabVal}">
+                        <div th:each="val : ${tabVal1}">
                             <tr>
                                 <input type="hidden" th:value="*{val.id}"/>
-                                <td th:text="${val.classType}"></td>
+                                <td th:text="${val.grade}"></td>
 
                                 <td align="center">
                                     <!--<a th:href="@{/task/edit/{id}(id=${val.id})}">-->
@@ -161,7 +168,7 @@
                         </tbody>
                     </table>
                     <ul class="nav nav-pills">
-                        <li class="nav-item" th:each="i : ${#numbers.sequence(0,tabVal.size()-1)}">
+                        <li class="nav-item" th:each="i : ${#numbers.sequence(0,tabVal1.size()-1)}">
                             <a th:href="@{/admin/class/(page=${i})}" th:text="${i}" class="nav-link"
                                th:classappend="${currentPage}==${i}?'active':'' "></a>
                         </li>

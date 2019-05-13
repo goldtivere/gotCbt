@@ -1,0 +1,13 @@
+package got.cbtproject.gotcbt.repositories;
+
+import got.cbtproject.gotcbt.model.SchoolGrade;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface SchoolGradeRepository extends CrudRepository<SchoolGrade, Long> {
+    Optional<SchoolGrade> findByGrade(String SchoolGrade);
+    List<SchoolGrade> findByIsdeleted(boolean isdeleted, Pageable pageable);
+}
