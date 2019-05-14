@@ -13,7 +13,7 @@ import java.util.List;
 public class StudentGradeCommand {
     private Long id;
     private List<SchoolClass> schoolClass= new ArrayList<>();
-    private String classGrade;
+    private SchoolClass classGrade;
     private String grade;
     private Long createdBy;
     private LocalDate dateCreated;

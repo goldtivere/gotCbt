@@ -31,14 +31,13 @@ public class StudentGradeToCommand implements Converter<SchoolGrade, StudentGrad
 
         command.setUpdatedBy(source.getUpdatedBy());
         command.setDateupdated(source.getDateupdated());
+        command.setSchoolClass(source.getSchoolClass());
         command.setCreatedBy(source.getCreatedBy());
         command.setDateCreated(source.getDatecreated());
         command.setDateDeleted(source.getDateDeleted());
         command.setDeletedBy(source.getDeletedBy());
         command.setIsdeleted(source.isIsdeleted());
-        if (source.getSchoolClass() != null && source.getSchoolClass().size() > 0){
-            source.getSchoolClass().forEach( schoolClass -> command.getSchoolClass().add(commandToStudentType.convert(schoolClass)));
-        }
+
         return command;
     }
 }

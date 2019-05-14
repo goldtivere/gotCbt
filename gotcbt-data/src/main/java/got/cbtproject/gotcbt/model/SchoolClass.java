@@ -20,6 +20,9 @@ public class SchoolClass extends BaseEntity {
     @Column(name = "classType")
     private String classType;
 
+//    @ManyToOne
+//    private SchoolGrade schoolGrade;
+
 
 
 }

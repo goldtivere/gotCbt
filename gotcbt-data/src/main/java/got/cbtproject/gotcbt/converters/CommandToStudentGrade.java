@@ -1,6 +1,5 @@
 package got.cbtproject.gotcbt.converters;
 
-import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.command.StudentGradeCommand;
 import got.cbtproject.gotcbt.model.SchoolGrade;
 import lombok.Synchronized;
@@ -28,6 +27,7 @@ public class CommandToStudentGrade implements Converter<StudentGradeCommand, Sch
         final SchoolGrade schoolGrade= new SchoolGrade();
         schoolGrade.setId(source.getId());
         schoolGrade.setGrade(source.getGrade());
+        schoolGrade.setSchoolClass(source.getSchoolClass());
         schoolGrade.setUpdatedBy(source.getUpdatedBy());
         schoolGrade.setDateupdated(source.getDateupdated());
         schoolGrade.setCreatedBy(source.getCreatedBy());
@@ -35,10 +35,6 @@ public class CommandToStudentGrade implements Converter<StudentGradeCommand, Sch
         schoolGrade.setDateDeleted(source.getDateDeleted());
         schoolGrade.setDeletedBy(source.getDeletedBy());
         schoolGrade.setIsdeleted(source.isIsdeleted());
-
-        if (source.getSchoolClass() != null && source.getSchoolClass().size() > 0){
-            source.getSchoolClass().forEach(  schoolClass-> schoolGrade.getSchoolClass().add(commandToStudentType.convert((StudentClassCommand) schoolClass)));
-        }
 
 
         return schoolGrade;

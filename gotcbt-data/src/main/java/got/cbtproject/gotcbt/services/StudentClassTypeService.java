@@ -9,4 +9,5 @@ public interface StudentClassTypeService {
 //    List<SchoolClass> findByCreatedBy(Long createdBy, PageRequest pageRequest);
 
     SchoolClass findById(Long id);
+    SchoolClass findByClassType(String classType);
 }

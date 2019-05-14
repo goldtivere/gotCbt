@@ -59,4 +59,14 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
 
         return schl.get();
     }
+
+    @Override
+    public SchoolClass findByClassType(String classType) {
+        Optional<SchoolClass> schl = schoolClassRepository.findByClassType(classType);
+        if (!schl.isPresent()) {
+            throw new RuntimeException("ClassType doesnt exist!");
+        }
+
+        return schl.get();
+    }
 }
