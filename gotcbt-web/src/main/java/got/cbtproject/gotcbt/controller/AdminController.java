@@ -55,8 +55,7 @@ public class AdminController {
     public String department(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("classAtt", new StudentGradeCommand());
         model.addAttribute("dept",schoolClassRepository.findByIsdeleted(false));
-        model.addAttribute("tabVal1",
-                schoolGradeRepository.findByIsdeleted(false, new PageRequest(page, 4)));
+
         return "admin/department";
     }
 

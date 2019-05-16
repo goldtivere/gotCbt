@@ -32,4 +32,14 @@ public class StudentGradeServiceImpl implements StudentGradeService {
         SchoolGrade schoolSaved=schoolGradeRepository.save(schoolGrade);
         return studentGradeToCommand.convert(schoolSaved);
     }
+
+//    @Override
+//    public SchoolGrade findBySchoolClassType(SchoolClass classType,Pageable pageable) {
+//        Optional<SchoolGrade> schl = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,classType, pageable);
+//        if (!schl.isPresent()) {
+//            throw new RuntimeException("ClassType doesnt exist!");
+//        }
+//
+//        return schl.get();
+//    }
 }
