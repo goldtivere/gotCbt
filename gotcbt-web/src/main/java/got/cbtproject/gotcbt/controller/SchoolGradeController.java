@@ -1,7 +1,6 @@
 package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentGradeCommand;
-import got.cbtproject.gotcbt.message.Response;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.model.SchoolGrade;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -88,51 +88,15 @@ public class SchoolGradeController {
         return "redirect:/admin/department";
     }
 
-    @ResponseBody
-    @RequestMapping("/admin/class/{employeeId}")
-    public List<Response> singleEmployee(Model model, @PathVariable String employeeId, @RequestParam(defaultValue = "0") int page) {
-        //instantiate the response object
-        Response response = new Response();
-
-        //set the employee to null
-        List<SchoolGrade> returnedGrade = new ArrayList<>();
-        List<Response> returnedResponse = new ArrayList<>();
-        SchoolClass schoolClass1=studentClassTypeService.findByClassType(employeeId);
-
-
-        //grab all employees
+    @RequestMapping("/admin/class/{dept}")
+    public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
+        ModelAndView mv = new ModelAndView("fb::sasda");
+        SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
         List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
-        //look for a match
-        for (SchoolGrade employee : allGrade) {
 
-            for(SchoolClass schoolClass: employee.getSchoolClass())
-            {
-                if (schoolClass.getClassType().equals(employeeId)) {
-                    returnedGrade.add(employee);
-                    break;
-                }
-            }
-//            if (employee.getSchoolClass()..equals(employeeId)) {
-//                returnedGrade = employee;
-//                break;
-//            }
-        }
+        mv.addObject("itemDetails",allGrade);
+        return "fragments/classTab :: tabtab";
 
-        if (returnedGrade == null) {
-            //the URL contains an unknown employee id - we'll return an empty response
-            response.setResponseStatus(Response.NOT_FOUND);
-            response.setResponse("");
-            returnedResponse.add(response);
-        } else {
-            //good response if we get here
-            System.out.println(returnedGrade.get(0).getGrade() + " equals "+ returnedGrade.get(0).getSchoolClass().get(0).getClassType());
-            response.setResponseStatus(Response.OK);
-            response.setResponse(returnedGrade);
-            returnedResponse.add(response);
-            System.out.println(returnedGrade.get(1).getGrade() + " plus ");
-        }
-
-        return returnedResponse;
     }
 
 //    @GetMapping("/admin/class/{employeeId}")

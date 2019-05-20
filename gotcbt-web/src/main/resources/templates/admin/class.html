@@ -155,7 +155,7 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item" th:each="i : ${#numbers.sequence(0,tabVal.size()-1)}">
                             <a th:href="@{/admin/class/(page=${i})}" th:text="${i}" class="nav-link"
-                            th:classappend="${currentPage}==${i}?'active':'' "></a>
+                               th:classappend="${currentPage}==${i}?'active':'' "></a>
                         </li>
                     </ul>
                     <hr/>
