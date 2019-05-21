@@ -1,16 +1,50 @@
 $(document).ready(function () {
-    $('.table .eBtn').on('click', function (event) {
+    $('.tables .eBtn').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
+        var val = $(this).attr("id");
 
-        $.get(href, function (schoolClass, status) {
-            $('.myForm #id').val(schoolClass.id);
-            $('.myForm #classType').val(schoolClass.classType);
-        })
-        $('.myForm #trueModal').modal();
+            console.log(val + " na this")
+            $.get(href, function (schlDept, status) {
+                $('.myForm #id').val(schoolClass.id);
+                $('.myForm #dept').val(schoolClass.grade);
+            })
+            $('.myForm #trueModal').modal();
+
     });
 
 });
+
+$(document).ready(function () {
+    $('.table .eBtn').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+        var val = $(this).attr("id");
+
+        if(val=="dept")
+        {
+            console.log(val + " na this")
+            $.get(href, function (schoolClass, status) {
+                $('.myForm #id').val(schoolClass.id);
+                $('.myForm #classType').val(schoolClass.classType);
+            })
+            $('.myForm #trueModal').modal();
+        }
+        else if(val=="class")
+        {
+            console.log(val + " na this")
+            $.get(href, function (schlDept, status) {
+                $('.myForm #id').val(schoolClass.id);
+                $('.myForm #dept').val(schoolClass.grade);
+            })
+            $('.myForm #trueModal').modal();
+        }
+    });
+
+
+
+});
+
 
 $(document).ready(function () {
 
@@ -23,15 +57,18 @@ $(document).ready(function () {
     function getContent() {
 
         //create url to request fragment
-        var uu=$('#employeeIdSelect').val();
-        var url = "./class/"+uu;
-        console.log(url);
+        var uu = $('#employeeIdSelect').val();
+        if (uu == "default") {
 
-        //load fragment and replace content
-        $('#replace_div').load(url);
+        } else {
+            var url = "./class/" + uu;
+            console.log(url);
+
+            //load fragment and replace content
+            $('#replace_div').load(url);
+        }
     }
 })
-
 
 
 // function employeeSelects() {

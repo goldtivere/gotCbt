@@ -42,4 +42,16 @@ public class StudentGradeServiceImpl implements StudentGradeService {
 //
 //        return schl.get();
 //    }
+
+
+    @Override
+    public SchoolGrade findById(Long id) {
+        Optional<SchoolGrade> schl = schoolGradeRepository.findById(id);
+
+        if (!schl.isPresent()) {
+            throw new RuntimeException("Id doesnt exist!");
+        }
+
+        return schl.get();
+    }
 }

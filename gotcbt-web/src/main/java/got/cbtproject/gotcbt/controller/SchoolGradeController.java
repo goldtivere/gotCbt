@@ -93,26 +93,19 @@ public class SchoolGradeController {
         List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
 
         model.addAttribute("itemDetails",allGrade);
+        model.addAttribute("schlDept", new StudentGradeCommand());
         return "fragments/classTab :: tabtab";
 
     }
 
-//    @GetMapping("/admin/class/{employeeId}")
-//    public String singleEmployee(Model model, @PathVariable String employeeId, @RequestParam(defaultValue = "0") int page) {
-//        //instantiate the response object
-//        Response response = new Response();
-//
-//        //set the employee to null
-//        SchoolGrade returnedGrade = null;
-//        SchoolClass schoolClass1=studentClassTypeService.findByClassType(employeeId);
-//
-//
-//        //grab all employees
-//        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
-//
-//        List<SchoolClass> schlAtt= allGrade.get(0).getSchoolClass();
-//        model.addAttribute("tabVal1", schlAtt);
-//        return "admin/department";
-//    }
+    @GetMapping("/admin/department/update/{id}")
+    @ResponseBody
+    public SchoolGrade todoOperation(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
 
+        return studentGradeService.findById(id);
+//            if (id == null || id.equals(null)) {
+//                redirectAttributes.addFlashAttribute("msg", "notfound");
+//            }
+
+    }
 }
