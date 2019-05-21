@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -90,11 +89,10 @@ public class SchoolGradeController {
 
     @RequestMapping("/admin/class/{dept}")
     public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
-        ModelAndView mv = new ModelAndView("fb::sasda");
         SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
         List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
 
-        mv.addObject("itemDetails",allGrade);
+        model.addAttribute("itemDetails",allGrade);
         return "fragments/classTab :: tabtab";
 
     }
