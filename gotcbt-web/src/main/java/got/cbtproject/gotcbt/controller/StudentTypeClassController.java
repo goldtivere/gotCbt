@@ -23,11 +23,13 @@ public class StudentTypeClassController {
     private final StudentClassTypeService studentClassTypeService;
     private final GlobalController globalController;
     private final SchoolClassRepository schoolClassRepository;
+    private final StudentClassTypeCommand studentClassTypeCommand;
 
-    public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController, SchoolClassRepository schoolClassRepository) {
+    public StudentTypeClassController(StudentClassTypeService studentClassTypeService, GlobalController globalController, SchoolClassRepository schoolClassRepository, StudentClassTypeCommand studentClassTypeCommand) {
         this.studentClassTypeService = studentClassTypeService;
         this.globalController = globalController;
         this.schoolClassRepository = schoolClassRepository;
+        this.studentClassTypeCommand = studentClassTypeCommand;
     }
 
     @PostMapping("/admin/schoolgroup/{operation}")
@@ -74,7 +76,7 @@ public class StudentTypeClassController {
 
     @GetMapping("/admin/update/{id}")
     public String todoOperation(Model model, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
-        model.addAttribute("editClass",studentClassTypeService.findById(id) );
+        model.addAttribute("editClass",studentClassTypeCommand.convert(studentClassTypeService.findById(id)) );
 //            if (id == null || id.equals(null)) {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //

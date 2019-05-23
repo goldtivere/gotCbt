@@ -73,13 +73,13 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${classAtt}" th:action="@{/admin/Class/save}" method="post">
+            <form th:object="${classAtt}" th:action="@{/admin/department/save}" method="post">
 
                 <div class="form-group dropSelect">
 
                     <label for="employeeIdSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" id="employeeIdSelect" th:field="*{id}">
+                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="employeeIdSelect">
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
                         <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.classType}">
                     </select>

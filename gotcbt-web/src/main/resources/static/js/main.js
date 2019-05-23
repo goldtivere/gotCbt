@@ -43,6 +43,16 @@
 
 
 $(document).ready(function () {
+    $('#postMe .nav-link').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+        $('#replace_div').load(url);
+
+    });
+
+});
+
+$(document).ready(function () {
 
     //call function when page is loaded
     getContent();
@@ -57,7 +67,7 @@ $(document).ready(function () {
         var uu = $('#employeeIdSelect').val();
         if (uu == "default") {
         } else {
-            var url = "./class/" + uu;
+            var url = "./department/" + uu;
 
             console.log(url);
             $('#replace_div').load(url);

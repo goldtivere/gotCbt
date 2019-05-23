@@ -71,45 +71,12 @@
 
         </tbody>
     </table>
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills" id="postMe">
         <li class="nav-item" th:each="i : ${#numbers.sequence(0,itemDetails.size()-1)}">
-            <a th:href="@{/admin/class/(page=${i})}" th:text="${i}" class="nav-link"
+            <a th:href="@{/admin/department/(page=${i})}" th:text="${i}" class="nav-link"
                th:classappend="${currentPage}==${i}?'active':'' "></a>
         </li>
     </ul>
-    <!--start send to edit modal-->
-    <div class="myForms">
-        <form th:object="${schlDept}" th:action="@{/admin/department/update}" method="post">
-            <div class="modal fade" id="trueModals" tabindex="-1"
-                 role="dialog" aria-labelledby="trueModals" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 id="myModalLabel">Edit Record</h3>
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">×
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" id="id" th:field="*{id}"/>
-                            <input type="text" id="dept" th:field="*{grade}"
-                                   class="form-control pull-right"
-                                   required="required"
-                                   placeholder="School System Group"/>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn " aria-hidden="true">
-                                Update
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-        </form>
-    </div>
-    <!--end send to edit modal-->
     <hr/>
 </div>
 </body>

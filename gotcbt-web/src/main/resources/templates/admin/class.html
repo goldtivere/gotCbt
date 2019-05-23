@@ -110,7 +110,7 @@
                                     <!--data-placement="top" title="Edit Task"></span></a>-->
                                     <a th:href="@{/admin/update/{id}(id=${val.id})}" class="eBtn" id="dept">
                                             <span class="fa fa-edit" data-toggle="tooltip"
-                                                  data-placement="top" title="Edit">Edit</span></a>
+                                                  data-placement="top" title="Edit"></span></a>
                                     &nbsp; &nbsp;
                                     <a data-toggle="modal" data-target="#modal-toTrash"
                                        th:attr="data-target='#modal-toTrash'+${val.id}">
@@ -160,39 +160,6 @@
                     </ul>
                     <hr/>
 
-                    <!--start send to edit modal-->
-                    <div class="myForm">
-                        <form th:object="${updateClass}" th:action="@{/admin/schoolgroup/update}" method="post">
-                            <div class="modal fade" id="trueModal" tabindex="-1"
-                                 role="dialog" aria-labelledby="trueModal" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 id="myModalLabel">Edit Record</h3>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">×
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input type="hidden" id="id" th:field="*{id}"/>
-                                            <input type="text" id="classType" th:field="*{classType}"
-                                                   class="form-control pull-right"
-                                                   required="required"
-                                                   placeholder="School System Group"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn " aria-hidden="true">
-                                                Update
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                        </form>
-                    </div>
-                    <!--end send to edit modal-->
                 </div>
 
             </div>
