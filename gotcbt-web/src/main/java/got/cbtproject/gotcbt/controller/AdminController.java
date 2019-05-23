@@ -54,6 +54,7 @@ public class AdminController {
     @GetMapping("department")
     public String department(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("classAtt", new StudentGradeCommand());
+        model.addAttribute("schlDept", new StudentGradeCommand());
         model.addAttribute("dept",schoolClassRepository.findByIsdeleted(false));
 
         return "admin/department";

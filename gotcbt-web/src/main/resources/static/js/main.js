@@ -1,49 +1,45 @@
-$(document).ready(function () {
-    $('.tables .eBtn').on('click', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-        var val = $(this).attr("id");
-
-            console.log(val + " na this")
-            $.get(href, function (schlDept, status) {
-                $('.myForm #id').val(schoolClass.id);
-                $('.myForm #dept').val(schoolClass.grade);
-            })
-            $('.myForm #trueModal').modal();
-
-    });
-
-});
-
-$(document).ready(function () {
-    $('.table .eBtn').on('click', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-        var val = $(this).attr("id");
-
-        if(val=="dept")
-        {
-            console.log(val + " na this")
-            $.get(href, function (schoolClass, status) {
-                $('.myForm #id').val(schoolClass.id);
-                $('.myForm #classType').val(schoolClass.classType);
-            })
-            $('.myForm #trueModal').modal();
-        }
-        else if(val=="class")
-        {
-            console.log(val + " na this")
-            $.get(href, function (schlDept, status) {
-                $('.myForm #id').val(schoolClass.id);
-                $('.myForm #dept').val(schoolClass.grade);
-            })
-            $('.myForm #trueModal').modal();
-        }
-    });
-
-
-
-});
+// $(document).ready(function () {
+//     $('.tables .eBtn').on('click', function (event) {
+//         event.preventDefault();
+//         var href = $(this).attr('href');
+//         var val = $(this).attr("id");
+//
+//         console.log(val + " na this")
+//         $.get(href, function (schlDept, status) {
+//             $('.myForms #id').val(schoolClass.id);
+//             $('.myForms #dept').val(schoolClass.grade);
+//         })
+//         $('.myForms #trueModals').modal();
+//
+//     });
+//
+// });
+//
+// $(document).ready(function () {
+//     $('.table .eBtn').on('click', function (event) {
+//         event.preventDefault();
+//         var href = $(this).attr('href');
+//         var val = $(this).attr("id");
+//
+//         if (val == "dept") {
+//             console.log(val + " na this")
+//             $.get(href, function (schoolClass, status) {
+//                 $('.myForm #id').val(schoolClass.id);
+//                 $('.myForm #classType').val(schoolClass.classType);
+//             })
+//             $('.myForm #trueModal').modal();
+//         } else if (val == "class") {
+//             console.log(val + " na this")
+//             $.get(href, function (schlDept, status) {
+//                 $('.myForm #id').val(schoolClass.id);
+//                 $('.myForm #dept').val(schoolClass.grade);
+//             })
+//             $('.myForm #trueModal').modal();
+//         }
+//     });
+//
+//
+// });
 
 
 $(document).ready(function () {
@@ -57,21 +53,23 @@ $(document).ready(function () {
     function getContent() {
 
         //create url to request fragment
+        $('#ajaxLoader').show();
         var uu = $('#employeeIdSelect').val();
         if (uu == "default") {
-
         } else {
             var url = "./class/" + uu;
-            console.log(url);
 
-            //load fragment and replace content
+            console.log(url);
             $('#replace_div').load(url);
+            //load fragment and replace content
+            // $('#replace_div').load(url);
         }
+        $('#ajaxLoader').hide();
     }
 })
 
 
-// function employeeSelects() {
+// function employeeSelect() {
 //     $('#ajaxLoader').show();
 //         var name = $('.drop-down option:selected').val();
 //     var employeeId = $('#employeeIdSelect').val();
@@ -96,7 +94,7 @@ $(document).ready(function () {
 //
 //     $('#ajaxLoader').hide();
 // }
-//
+
 
 
 // function employeeSelect() {

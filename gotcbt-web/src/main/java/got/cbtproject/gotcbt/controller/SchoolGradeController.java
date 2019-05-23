@@ -87,6 +87,18 @@ public class SchoolGradeController {
         return "redirect:/admin/department";
     }
 
+//    @RequestMapping("/admin/class/{dept}")
+//    public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
+//        SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
+//        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
+//
+//        model.addAttribute("itemDetails",allGrade);
+//        model.addAttribute("schlDept", new StudentGradeCommand());
+//        return "fragments/classTab :: tabtab";
+//
+//    }
+
+
     @RequestMapping("/admin/class/{dept}")
     public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
         SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
@@ -99,13 +111,13 @@ public class SchoolGradeController {
     }
 
     @GetMapping("/admin/department/update/{id}")
-    @ResponseBody
-    public SchoolGrade todoOperation(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+    public String todoOperation(Model model,@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
 
-        return studentGradeService.findById(id);
+        model.addAttribute("deptUpdate", studentGradeService.findById(id));
+        model.addAttribute("deptVal",schoolClassRepository.findByIsdeleted(false));
 //            if (id == null || id.equals(null)) {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //            }
-
+        return "admin/editClass";
     }
 }

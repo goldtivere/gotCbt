@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <p class="pull-right">Student\Student Class</p>
+            <p class="pull-right">Student\Edit</p>
         </div>
     </div>
     <div class="row">
@@ -48,7 +48,7 @@
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
-                <strong>Department doesnt exist or Class Exists! Please enter valid department or Class</strong>
+                <strong>School Class Name already exist!</strong>
             </div>
             <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
@@ -56,47 +56,28 @@
                 </button>
                 <strong><h6 th:text="${msgText}"/></strong>
             </div>
-            <div th:if="${msg eq 'classVal'}" class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">&times;
-                </button>
-                <strong>Please select Department!!!</strong>
-            </div>
             <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
                 <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
             </div>
-
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${classAtt}" th:action="@{/admin/Class/save}" method="post">
+            <form th:object="${editClass}" th:action="@{/admin/schoolgroup/update}" method="post">
 
-                <div class="form-group dropSelect">
-
-                    <label for="employeeIdSelect">Select Department:</label>
-
-                    <select class="form-control drop-down" id="employeeIdSelect" th:field="*{id}">
-                        <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
-                        <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.classType}">
-                    </select>
-
-                    <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
-                            th:src="@{/images/ajaxLoader.gif}"/></div>
-
-                </div>
                 <div class="form-group">
-                    <label>Add Class:</label>
-                    <input type="text" class="form-control pull-right" th:field="*{grade}"
+                    <input type="hidden" id="id" th:field="*{id}"/>
+                    <label>Department:</label>
+                    <input type="text" th:field="*{classType}" class="form-control pull-right"
                            required="required"
-                           placeholder="Add Class"/>
+                           placeholder="Add Department"/>
                 </div>
                 <div class="float-right btn-send">
                     <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                        Create Class
+                        Update
                     </button>
                 </div>
 
@@ -104,24 +85,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-body">
 
-                    <div id="replace_div">
-
-
-                    </div>
-
-                </div>
-                <!--end send to edit modal-->
-            </div>
-
-        </div>
-
-    </div>
-</div>
 </div>
 </body>
 </html>

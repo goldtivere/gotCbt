@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
+
 </head>
 
 <body>
 <div th:fragment="tabtab">
-    <table class="table table-bordered  table-striped table-responsive tables">
+    <table class="table table-bordered  table-striped table-responsive tables" id="tab">
         <thead>
         <tr class="btn-info">
             <th>School Department</th>
@@ -77,10 +78,10 @@
         </li>
     </ul>
     <!--start send to edit modal-->
-    <div class="myForm">
+    <div class="myForms">
         <form th:object="${schlDept}" th:action="@{/admin/department/update}" method="post">
-            <div class="modal fade" id="trueModal" tabindex="-1"
-                 role="dialog" aria-labelledby="trueModal" aria-hidden="true">
+            <div class="modal fade" id="trueModals" tabindex="-1"
+                 role="dialog" aria-labelledby="trueModals" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

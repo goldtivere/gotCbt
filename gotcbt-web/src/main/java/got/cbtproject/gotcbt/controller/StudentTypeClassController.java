@@ -2,13 +2,16 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.converters.StudentClassTypeCommand;
-import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -45,7 +48,7 @@ public class StudentTypeClassController {
                 }
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    String classType= updateClass.getClassType();
+                    String classType = updateClass.getClassType();
                     updateClass = studentClassTypeCommand.convert(studentClassTypeService.findById(updateClass.getId()));
                     updateClass.setClassType(classType);
                     updateClass.setUpdatedBy(globalController.getLoginUser().getId());
@@ -70,13 +73,13 @@ public class StudentTypeClassController {
     }
 
     @GetMapping("/admin/update/{id}")
-    @ResponseBody
-    public SchoolClass todoOperation(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
-
-        return studentClassTypeService.findById(id);
+    public String todoOperation(Model model, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+        model.addAttribute("editClass",studentClassTypeService.findById(id) );
 //            if (id == null || id.equals(null)) {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
-//            }
+//
+        return "admin/edit";
+
 
     }
 

@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <p class="pull-right">Student\Student Class</p>
+            <p class="pull-right">Student\Edit Class</p>
         </div>
     </div>
     <div class="row">
@@ -73,15 +73,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${classAtt}" th:action="@{/admin/Class/save}" method="post">
+            <form th:object="${deptUpdate}" th:action="@{/admin/Class/save}" method="post">
 
                 <div class="form-group dropSelect">
 
-                    <label for="employeeIdSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" id="employeeIdSelect" th:field="*{id}">
-                        <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
-                        <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.classType}">
+                    <select class="form-control drop-down" th:field="*{id}">
+                        <option th:value="${deptUpdate.schoolClass.get(0).id}" th:label="${deptUpdate.schoolClass.get(0).classType}" selected="true"></option>
+                        <option th:each="row : ${deptVal}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
                     <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
@@ -96,7 +95,7 @@
                 </div>
                 <div class="float-right btn-send">
                     <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                        Create Class
+                        Update Class
                     </button>
                 </div>
 
@@ -104,23 +103,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-body">
-
-                    <div id="replace_div">
-
-
-                    </div>
-
-                </div>
-                <!--end send to edit modal-->
-            </div>
-
-        </div>
-
-    </div>
 </div>
 </div>
 </body>
