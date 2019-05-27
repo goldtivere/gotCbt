@@ -1,57 +1,18 @@
-// $(document).ready(function () {
-//     $('.tables .eBtn').on('click', function (event) {
-//         event.preventDefault();
-//         var href = $(this).attr('href');
-//         var val = $(this).attr("id");
-//
-//         console.log(val + " na this")
-//         $.get(href, function (schlDept, status) {
-//             $('.myForms #id').val(schoolClass.id);
-//             $('.myForms #dept').val(schoolClass.grade);
-//         })
-//         $('.myForms #trueModals').modal();
-//
-//     });
-//
-// });
-//
-// $(document).ready(function () {
-//     $('.table .eBtn').on('click', function (event) {
-//         event.preventDefault();
-//         var href = $(this).attr('href');
-//         var val = $(this).attr("id");
-//
-//         if (val == "dept") {
-//             console.log(val + " na this")
-//             $.get(href, function (schoolClass, status) {
-//                 $('.myForm #id').val(schoolClass.id);
-//                 $('.myForm #classType').val(schoolClass.classType);
-//             })
-//             $('.myForm #trueModal').modal();
-//         } else if (val == "class") {
-//             console.log(val + " na this")
-//             $.get(href, function (schlDept, status) {
-//                 $('.myForm #id').val(schoolClass.id);
-//                 $('.myForm #dept').val(schoolClass.grade);
-//             })
-//             $('.myForm #trueModal').modal();
-//         }
-//     });
-//
-//
-// });
-
-
-$(document).ready(function () {
-    $('#postMe .nav-link').on('click', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-        $('#replace_div').load(url);
-
-    });
-
+$(document).ready( function () {
+    var table = $('#employeesTsssable').DataTable({
+        "sAjaxSource": "/employees",
+        "sAjaxDataProp": "",
+        "order": [[ 0, "asc" ]],
+        "aoColumns": [
+            { "mData": "id"},
+            { "mData": "name" },
+            { "mData": "lastName" },
+            { "mData": "email" },
+            { "mData": "phone" },
+            { "mData": "active" }
+        ]
+    })
 });
-
 $(document).ready(function () {
 
     //call function when page is loaded
@@ -66,11 +27,24 @@ $(document).ready(function () {
         $('#ajaxLoader').show();
         var uu = $('#employeeIdSelect').val();
         if (uu == "default") {
+            $(".panel .replaceDiv").hide(100);
         } else {
-            var url = "./department/" + uu;
+            $(".panel .replaceDiv").show(100);
+            var url = "./department/val/"+uu;
+            var urls = "./department/"+uu;
+            var table = $('#employeesTable').DataTable({
+                "sAjaxSource": url,
+                "sAjaxDataProp": "",
+                "order": [[ 0, "asc" ]],
+                "aoColumns": [
+                    { "mData": "id"},
+                    { "mData": "grade" }
 
+                ]
+            })
             console.log(url);
-            $('#replace_div').load(url);
+           // $('#replace_div').load(urls);
+
             //load fragment and replace content
             // $('#replace_div').load(url);
         }

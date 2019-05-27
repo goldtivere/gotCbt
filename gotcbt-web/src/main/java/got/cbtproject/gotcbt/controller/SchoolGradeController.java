@@ -106,14 +106,24 @@ public class SchoolGradeController {
 //    }
 
 
-    @RequestMapping("/admin/department/{dept}")
-    public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
+    @GetMapping("/admin/department/{dept}")
+    public String singleEmployee(Model model, @PathVariable("dept") String dept, @RequestParam(defaultValue = "0") int page) {
+        System.out.println("Hello "+ dept);
         SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
         List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
 
         model.addAttribute("itemDetails",allGrade);
         model.addAttribute("schlDept", new StudentGradeCommand());
         return "fragments/classTab :: tabtab";
+
+    }
+
+    @GetMapping("/admin/department/val/{item}")
+    @ResponseBody
+    public List<SchoolGrade> getAllEmployees(@PathVariable("item") String item){
+        System.out.println("Hello "+ item+" again");
+        SchoolClass schoolClass1=studentClassTypeService.findByClassType(item);
+        return schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1);
 
     }
 
