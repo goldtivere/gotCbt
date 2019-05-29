@@ -127,7 +127,7 @@ public class SchoolGradeController {
 
     }
 
-    @GetMapping("/admin/dssepartment/update/{id}")
+    @GetMapping("/admin/department/update/{id}")
     public String todoOperation(Model model,@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
 
         model.addAttribute("deptUpdate",studentGradeToCommand.convert(studentGradeService.findById(id)));
