@@ -30,6 +30,11 @@ $(document).ready(function () {
             $(".panel .replaceDiv").hide(100);
         } else {
             $(".panel .replaceDiv").show(100);
+            var deleteCell = $('<td><a>Delete</a></td>');
+            var editCell = $('<td><a>Edit</a></td>');
+            // bind href first and insert the cells later
+            deleteCell.find('a').attr('href', '/delete/${user.id}'),
+                editCell.find('a').attr('href', '/edit/${user.id}')
             var url = "./department/val/"+uu;
             var urls = "./department/"+uu;
             var table = $('#employeesTable').DataTable({
@@ -37,8 +42,20 @@ $(document).ready(function () {
                 "sAjaxDataProp": "",
                 "order": [[ 0, "asc" ]],
                 "aoColumns": [
+
                     { "mData": "id"},
-                    { "mData": "grade" }
+                    { "mData": "grade" },
+                    {
+                        "mData": "id",
+                        "render": function(data, type, row, meta){
+                            if(type === 'display'){
+                                data = '<a href="' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>';
+                            }
+
+                            return data;
+                        }
+                    }
+
 
                 ]
             })
