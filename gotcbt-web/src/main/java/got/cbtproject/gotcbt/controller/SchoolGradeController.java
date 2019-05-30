@@ -38,13 +38,12 @@ public class SchoolGradeController {
 
     @PostMapping("/admin/department/{operation}")
     public String saveTodo(@ModelAttribute("classAtt") StudentGradeCommand schoolClass,
-                           @ModelAttribute("deptUpdate") StudentGradeCommand updateClass,@PathVariable("operation") String operation,
+                           @ModelAttribute("deptUpdate") StudentGradeCommand updateClass, @PathVariable("operation") String operation,
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
         try {
             List<SchoolClass> schName = new ArrayList<>();
 
-            System.out.println();
             if (operation.equals("save")) {
                 if (!schoolClass.getSchoolClass().equals(null) || schoolClass.getSchoolClass() != null) {
                     if (!schoolClass.equals("") || schoolClass != null) {
@@ -71,7 +70,7 @@ public class SchoolGradeController {
                     updateClass.setCreatedBy(globalController.getLoginUser().getId());
                     updateClass.setDateCreated(LocalDate.now());
                     updateClass.setIsdeleted(false);
-                    studentGradeService.save(schoolClass);
+                    studentGradeService.save(updateClass);
                     redirectAttributes.addFlashAttribute("msg", "success");
                 } else {
                     redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
@@ -83,7 +82,11 @@ public class SchoolGradeController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "exist");
         } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("msg", "exist");
+            redirectAttributes.addFlashAttribute("msg", "active");
+            redirectAttributes.addFlashAttribute("msgText", e.getMessage());
+
+            e.printStackTrace();
+
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "fail");
@@ -108,11 +111,10 @@ public class SchoolGradeController {
 
     @GetMapping("/admin/department/{dept}")
     public String singleEmployee(Model model, @PathVariable("dept") String dept, @RequestParam(defaultValue = "0") int page) {
-        System.out.println("Hello "+ dept);
-        SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
-        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
+        SchoolClass schoolClass1 = studentClassTypeService.findByClassType(dept);
+        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1, new PageRequest(page, 4));
 
-        model.addAttribute("itemDetails",allGrade);
+        model.addAttribute("itemDetails", allGrade);
         model.addAttribute("schlDept", new StudentGradeCommand());
         return "fragments/classTab :: tabtab";
 
@@ -120,18 +122,17 @@ public class SchoolGradeController {
 
     @GetMapping("/admin/department/val/{item}")
     @ResponseBody
-    public List<SchoolGrade> getAllEmployees(@PathVariable("item") String item){
-        System.out.println("Hello "+ item+" again");
-        SchoolClass schoolClass1=studentClassTypeService.findByClassType(item);
-        return schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1);
+    public List<SchoolGrade> getAllEmployees(@PathVariable("item") String item) {
+        SchoolClass schoolClass1 = studentClassTypeService.findByClassType(item);
+        return schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1);
 
     }
 
     @GetMapping("/admin/department/update/{id}")
-    public String todoOperation(Model model,@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+    public String todoOperation(Model model, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("deptUpdate",studentGradeToCommand.convert(studentGradeService.findById(id)));
-        model.addAttribute("deptVal",schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("deptUpdate", studentGradeToCommand.convert(studentGradeService.findById(id)));
+        model.addAttribute("deptVal", schoolClassRepository.findByIsdeleted(false));
 //            if (id == null || id.equals(null)) {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //            }
