@@ -50,7 +50,7 @@
                 </button>
                 <strong>Department doesnt exist or Class Exists! Please enter valid department or Class</strong>
             </div>
-            <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
+            <div th:if="${msg eq 'active'}" class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
@@ -116,7 +116,6 @@
                             <tr>
                                 <th>School Department</th>
                                 <th>Action</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
                         </table>

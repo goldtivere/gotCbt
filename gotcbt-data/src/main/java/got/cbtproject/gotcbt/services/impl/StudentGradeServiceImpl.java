@@ -54,4 +54,14 @@ public class StudentGradeServiceImpl implements StudentGradeService {
 
         return schl.get();
     }
+
+    @Override
+    public StudentGradeCommand delete(StudentGradeCommand studentGradeCommand) {
+        SchoolGrade schoolClass1 = commandToStudentGrade.convert(studentGradeCommand);
+       // Optional<SchoolGrade> schl = schoolGradeRepository.findByClassType(schoolClass1.getClassType());
+
+        SchoolGrade schoolSaved = schoolGradeRepository.save(schoolClass1);
+       return studentGradeToCommand.convert(schoolSaved);
+
+    }
 }

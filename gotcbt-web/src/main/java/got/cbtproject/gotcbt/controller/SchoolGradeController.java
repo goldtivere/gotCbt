@@ -8,7 +8,6 @@ import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.repositories.SchoolGradeRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import got.cbtproject.gotcbt.services.StudentGradeService;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -85,7 +84,6 @@ public class SchoolGradeController {
             redirectAttributes.addFlashAttribute("msg", "active");
             redirectAttributes.addFlashAttribute("msgText", e.getMessage());
 
-            e.printStackTrace();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,29 +94,17 @@ public class SchoolGradeController {
         return "redirect:/admin/department";
     }
 
-//    @RequestMapping("/admin/class/{dept}")
-//    public String singleEmployee(Model model, @PathVariable String dept, @RequestParam(defaultValue = "0") int page) {
-//        SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
-//        SchoolClass schoolClass1=studentClassTypeService.findByClassType(dept);
-//        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false,schoolClass1,new PageRequest(page, 4));
+
+//    @GetMapping("/admin/department/{dept}")
+//    public String singleEmployee(Model model, @PathVariable("dept") String dept, @RequestParam(defaultValue = "0") int page) {
+//        SchoolClass schoolClass1 = studentClassTypeService.findByClassType(dept);
+//        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1, new PageRequest(page, 4));
 //
-//        model.addAttribute("itemDetails",allGrade);
+//        model.addAttribute("itemDetails", allGrade);
 //        model.addAttribute("schlDept", new StudentGradeCommand());
 //        return "fragments/classTab :: tabtab";
 //
 //    }
-
-
-    @GetMapping("/admin/department/{dept}")
-    public String singleEmployee(Model model, @PathVariable("dept") String dept, @RequestParam(defaultValue = "0") int page) {
-        SchoolClass schoolClass1 = studentClassTypeService.findByClassType(dept);
-        List<SchoolGrade> allGrade = schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1, new PageRequest(page, 4));
-
-        model.addAttribute("itemDetails", allGrade);
-        model.addAttribute("schlDept", new StudentGradeCommand());
-        return "fragments/classTab :: tabtab";
-
-    }
 
     @GetMapping("/admin/department/val/{item}")
     @ResponseBody
@@ -137,5 +123,23 @@ public class SchoolGradeController {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //            }
         return "admin/editClass";
+    }
+
+
+    @GetMapping("/admin/department/delete/{id}")
+    public String delete(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+        StudentGradeCommand updateClass = new StudentGradeCommand();
+        if (id == null || id.equals(null)) {
+            redirectAttributes.addFlashAttribute("msg", "active");
+        }
+
+        updateClass = studentGradeToCommand.convert(studentGradeService.findById(id));
+        updateClass.setDeletedBy(globalController.getLoginUser().getId());
+        updateClass.setDateDeleted(LocalDate.now());
+        updateClass.setIsdeleted(true);
+        studentGradeService.delete(updateClass);
+        redirectAttributes.addFlashAttribute("msg", "delete");
+
+        return "redirect:/admin/department";
     }
 }
