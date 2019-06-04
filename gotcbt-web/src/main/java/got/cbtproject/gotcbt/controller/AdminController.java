@@ -2,6 +2,7 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.command.StudentGradeCommand;
+import got.cbtproject.gotcbt.command.TermCommand;
 import got.cbtproject.gotcbt.enums.Student;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
@@ -47,7 +48,9 @@ public class AdminController {
     }
 
     @GetMapping("question")
-    public String indexQuestion() {
+    public String indexQuestion(Model model) {
+        model.addAttribute("quest", new StudentGradeCommand());
+        model.addAttribute("depts",schoolClassRepository.findByIsdeleted(false));
         return "admin/question";
     }
 
@@ -58,6 +61,14 @@ public class AdminController {
         model.addAttribute("dept",schoolClassRepository.findByIsdeleted(false));
 
         return "admin/department";
+    }
+
+    @GetMapping("term")
+    public String term(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("term", new TermCommand());
+        model.addAttribute("dep",schoolClassRepository.findByIsdeleted(false));
+
+        return "admin/term";
     }
 
     @GetMapping("findid")

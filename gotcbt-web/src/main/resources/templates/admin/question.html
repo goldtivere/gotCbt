@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments.html :: headerfiles">
 
+</head>
+
+<body>
+<header th:insert="fragments.html :: nav">
+</header>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<!-- Page content goes here -->
+<!--/*@thymesVar id="classSchool" type="got.cbtproject.gotcbt.model.SchoolClass"*/-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="pull-right">Student\Question</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div th:if="${msg eq 'success'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Class Saved <strong> Successfully</strong>
+            </div>
+            <div th:if="${msg eq 'update'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Group <strong> update Successful!!</strong>
+            </div>
+            <div th:if="${msg eq 'delete'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                School Class delete <strong> Successful!!</strong>
+            </div>
+            <div th:if="${msg eq 'fail'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong></strong>
+                <input th:text="${msg}"/>
+                <strong>Unexpected error occurred !!! Please try later.</strong>
+            </div>
+            <div th:if="${msg eq 'exist'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong>Department doesnt exist or Class Exists! Please enter valid department or Class</strong>
+            </div>
+            <div th:if="${msg eq 'active'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong><h6 th:text="${msgText}"/></strong>
+            </div>
+            <div th:if="${msg eq 'classVal'}" class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong>Please select Department!!!</strong>
+            </div>
+            <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">&times;
+                </button>
+                <strong>Error !!!</strong> <h6 th:text="${msgText}"/>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form th:object="${quest}" th:action="@{/admin/department/save}" method="post">
+
+                <div class="form-group dropSelect">
+
+                    <label for="employeeIdSelects">Select Department:</label>
+
+                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="employeeIdSelects">
+                        <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
+                        <option th:each="row : ${depts}" th:value="${row.classType}" th:label="${row.classType}">
+                    </select>
+
+                    <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
+                            th:src="@{/images/ajaxLoader.gif}"/></div>
+
+                </div>
+                <div class="form-group">
+                    <label for="classId">Select Class:</label>
+
+                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="classId">
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="employeeIdSelect">Select file:</label>
+                    <input type="file" class="form-control"  placeholder="Upload File"  ></input>
+
+                </div>
+                <div class="float-right btn-send">
+                    <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
+                       Upload
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+
+                    <div id="replace_div" class="replaceDiv">
+                        <table id="employeesTable" class="display table-bordered  table-striped table-responsive">
+                            <!-- Header Table -->
+                            <thead>
+                            <tr>
+                                <th>School Department</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+
+                </div>
+                <!--end send to edit modal-->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
 </body>
 </html>
