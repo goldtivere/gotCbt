@@ -77,9 +77,9 @@
 
                 <div class="form-group dropSelect">
 
-                    <label for="employeeIdSelects">Select Department:</label>
+                    <label for="termSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="employeeIdSelects">
+                    <select class="form-control drop-down" th:field="*{schlDept}" id="termSelect">
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
                         <option th:each="row : ${dep}" th:value="${row.classType}" th:label="${row.classType}">
                     </select>
