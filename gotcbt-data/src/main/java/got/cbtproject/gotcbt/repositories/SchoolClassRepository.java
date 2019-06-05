@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SchoolClassRepository extends CrudRepository<SchoolClass, Long> {
-    Optional<SchoolClass> findByClassType(String schoolClass);
+    Optional<SchoolClass> findByClassTypeAndIsdeleted(String schoolClass,boolean isdeleted);
     List<SchoolClass> findByIsdeleted(boolean isdeleted, Pageable pageable);
     List<SchoolClass> findByIsdeleted(boolean isdeleted);
 

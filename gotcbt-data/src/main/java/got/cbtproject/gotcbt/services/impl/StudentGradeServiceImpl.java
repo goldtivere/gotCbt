@@ -24,7 +24,7 @@ public class StudentGradeServiceImpl implements StudentGradeService {
     @Override
     public StudentGradeCommand save(StudentGradeCommand studentGradeCommand) {
         SchoolGrade schoolGrade= commandToStudentGrade.convert(studentGradeCommand);
-        Optional<SchoolGrade> schl = schoolGradeRepository.findByGrade(schoolGrade.getGrade());
+        Optional<SchoolGrade> schl = schoolGradeRepository.findByGradeAndIsdeleted(schoolGrade.getGrade(),false);
 
         if (schl.isPresent()) {
             throw new RuntimeException("School Group Already Exists!");
@@ -63,5 +63,15 @@ public class StudentGradeServiceImpl implements StudentGradeService {
         SchoolGrade schoolSaved = schoolGradeRepository.save(schoolClass1);
        return studentGradeToCommand.convert(schoolSaved);
 
+    }
+
+    @Override
+    public SchoolGrade findByGradeName(String name) {
+        Optional<SchoolGrade> schl = schoolGradeRepository.findBySchoolClassAndIsdeleted(name,false);
+
+        if (!schl.isPresent()) {
+            throw new RuntimeException("Grade doesnt exist!");
+        }
+        return schl.get();
     }
 }

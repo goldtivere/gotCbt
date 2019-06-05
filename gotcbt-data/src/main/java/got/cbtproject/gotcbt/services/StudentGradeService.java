@@ -8,5 +8,6 @@ public interface StudentGradeService {
     StudentGradeCommand save(StudentGradeCommand schoolClass);
     //SchoolGrade findBySchoolClassType(SchoolClass classType, Pageable pageable);
     SchoolGrade findById(Long id);
+    SchoolGrade findByGradeName(String name);
     StudentGradeCommand delete(StudentGradeCommand schoolClass);
 }
