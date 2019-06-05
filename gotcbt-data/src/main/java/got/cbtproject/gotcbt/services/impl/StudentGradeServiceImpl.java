@@ -67,7 +67,7 @@ public class StudentGradeServiceImpl implements StudentGradeService {
 
     @Override
     public SchoolGrade findByGradeName(String name) {
-        Optional<SchoolGrade> schl = schoolGradeRepository.findBySchoolClassAndIsdeleted(name,false);
+        Optional<SchoolGrade> schl = schoolGradeRepository.findByGradeAndIsdeleted(name,false);
 
         if (!schl.isPresent()) {
             throw new RuntimeException("Grade doesnt exist!");

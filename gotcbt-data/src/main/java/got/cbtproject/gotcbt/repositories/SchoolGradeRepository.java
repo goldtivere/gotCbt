@@ -11,8 +11,6 @@ import java.util.Optional;
 public interface SchoolGradeRepository extends CrudRepository<SchoolGrade, Long> {
     Optional<SchoolGrade> findByGradeAndIsdeleted(String SchoolGrade, boolean isdeleted);
 
-    Optional<SchoolGrade> findBySchoolClassAndIsdeleted(String name, boolean isdeleted);
-
     List<SchoolGrade> findByIsdeleted(boolean isdeleted, Pageable pageable);
 
     List<SchoolGrade> findByIsdeletedAndAndSchoolClass(boolean isdeleted, SchoolClass schoolClass, Pageable pageable);

@@ -68,14 +68,13 @@ $(document).ready(function () {
         // });
         var uu = $('#classId').val();
 
-        termSelect
         if (uu == "default" || uu == "" || uu==null) {
             $(".panels .replaceDivs").hide(100);
         } else {
             $(".panels .replaceDivs").show(100);
             var url = "./term/val/"+uu;
             var urls = "./term/"+uu;
-            var table = $('#sessionTable').DataTable({
+            var table = $('#tabTable').DataTable({
                 "destroy": true,
                 "sAjaxSource": url,
                 "sAjaxDataProp": "",
