@@ -81,7 +81,7 @@
 
                     <select class="form-control drop-down" th:field="*{classGrade.classType}" id="employeeIdSelect">
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
-                        <option th:each="row : ${dept}" th:value="${row.classType}" th:label="${row.classType}">
+                        <option th:each="row : ${dept}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
                     <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img

@@ -47,7 +47,7 @@ public class SchoolGradeController {
                 if (!schoolClass.getSchoolClass().equals(null) || schoolClass.getSchoolClass() != null) {
                     if (!schoolClass.equals("") || schoolClass != null) {
 
-                        schName.add(studentClassTypeService.findByClassType(schoolClass.getClassGrade().getClassType()));
+                        schName.add(studentClassTypeService.findByClassType(schoolClass.getClassGrade().getId()));
                         schoolClass.setSchoolClass(schName);
                         schoolClass.setCreatedBy(globalController.getLoginUser().getId());
                         schoolClass.setDateCreated(LocalDate.now());
@@ -64,7 +64,7 @@ public class SchoolGradeController {
 
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    schName.add(studentClassTypeService.findByClassType(updateClass.getClassGrade().getClassType()));
+                    schName.add(studentClassTypeService.findByClassType(updateClass.getClassGrade().getId()));
                     updateClass.setSchoolClass(schName);
                     updateClass.setCreatedBy(globalController.getLoginUser().getId());
                     updateClass.setDateCreated(LocalDate.now());
@@ -108,7 +108,7 @@ public class SchoolGradeController {
 
     @GetMapping("/admin/department/val/{item}")
     @ResponseBody
-    public List<SchoolGrade> getAllEmployees(@PathVariable("item") String item) {
+    public List<SchoolGrade> getAllEmployees(@PathVariable("item") Long item) {
         SchoolClass schoolClass1 = studentClassTypeService.findByClassType(item);
         return schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1);
 

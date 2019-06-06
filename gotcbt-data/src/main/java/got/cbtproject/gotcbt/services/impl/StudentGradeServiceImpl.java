@@ -46,7 +46,7 @@ public class StudentGradeServiceImpl implements StudentGradeService {
 
     @Override
     public SchoolGrade findById(Long id) {
-        Optional<SchoolGrade> schl = schoolGradeRepository.findById(id);
+        Optional<SchoolGrade> schl = schoolGradeRepository.findByIdAndIsdeleted(id,false);
 
         if (!schl.isPresent()) {
             throw new RuntimeException("Id doesnt exist!");
@@ -66,8 +66,8 @@ public class StudentGradeServiceImpl implements StudentGradeService {
     }
 
     @Override
-    public SchoolGrade findByGradeName(String name) {
-        Optional<SchoolGrade> schl = schoolGradeRepository.findByGradeAndIsdeleted(name,false);
+    public SchoolGrade findByGradeName(Long name) {
+        Optional<SchoolGrade> schl = schoolGradeRepository.findByIdAndIsdeleted(name,false);
 
         if (!schl.isPresent()) {
             throw new RuntimeException("Grade doesnt exist!");

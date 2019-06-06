@@ -1,15 +1,18 @@
 package got.cbtproject.gotcbt.controller;
 
+import got.cbtproject.gotcbt.command.TermCommand;
 import got.cbtproject.gotcbt.model.SchoolGrade;
 import got.cbtproject.gotcbt.model.SchoolTerm;
 import got.cbtproject.gotcbt.repositories.SchoolGradeRepository;
 import got.cbtproject.gotcbt.repositories.SchoolTermRepository;
 import got.cbtproject.gotcbt.services.StudentGradeService;
+import got.cbtproject.gotcbt.services.StudentTermService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,16 +20,80 @@ public class StudentTermController {
     private final SchoolGradeRepository schoolGradeRepository;
     private final SchoolTermRepository schoolTermRepository;
     private final StudentGradeService studentGradeService;
+    private final StudentTermService studentTermService;
+    private final GlobalController globalController;
 
-    public StudentTermController(SchoolGradeRepository schoolGradeRepository, SchoolTermRepository schoolTermRepository, StudentGradeService studentGradeService) {
+    public StudentTermController(SchoolGradeRepository schoolGradeRepository, SchoolTermRepository schoolTermRepository, StudentGradeService studentGradeService, StudentTermService studentTermService, GlobalController globalController) {
         this.schoolGradeRepository = schoolGradeRepository;
         this.schoolTermRepository = schoolTermRepository;
         this.studentGradeService = studentGradeService;
+        this.studentTermService = studentTermService;
+        this.globalController = globalController;
+    }
+
+    @PostMapping("/admin/term/{operation}")
+    public String saveTodo(@ModelAttribute("term") TermCommand termCommand,
+                           @ModelAttribute("deptUpdate") TermCommand updateClass, @PathVariable("operation") String operation,
+                           final RedirectAttributes redirectAttributes) {
+        // logger.info("/task/save");
+        try {
+            List<SchoolGrade> schName = new ArrayList<>();
+
+            if (operation.equals("save")) {
+                if (!termCommand.getTerm().equals(null) || termCommand.getSchlDept() != null || termCommand.getSchoolGrade() != null) {
+                    if (!termCommand.equals("") || termCommand != null) {
+                        System.out.println("here i am ID: " + termCommand.getId()
+                        );
+                        schName.add(studentGradeService.findByGradeName(termCommand.getId()));
+                        termCommand.setSchoolGrades(schName);
+                        termCommand.setCreatedBy(globalController.getLoginUser().getId());
+                        termCommand.setDateCreated(LocalDate.now());
+                        termCommand.setIsdeleted(false);
+
+                        studentTermService.save(termCommand);
+                        redirectAttributes.addFlashAttribute("msg", "success");
+                    } else {
+                        redirectAttributes.addFlashAttribute("msg", "Invalid Id");
+                    }
+                } else {
+                    redirectAttributes.addFlashAttribute("msg", "classVal");
+                }
+
+            } else if (operation.equals("update")) {
+//                if (!updateClass.equals("") || updateClass != null) {
+//                    schName.add(studentClassTypeService.findByClassType(updateClass.getClassGrade().getClassType()));
+//                    updateClass.setSchoolClass(schName);
+//                    updateClass.setCreatedBy(globalController.getLoginUser().getId());
+//                    updateClass.setDateCreated(LocalDate.now());
+//                    updateClass.setIsdeleted(false);
+//                    studentGradeService.save(updateClass);
+//                    redirectAttributes.addFlashAttribute("msg", "success");
+//                } else {
+//                    redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
+//                }
+            } else {
+                redirectAttributes.addFlashAttribute("msg", "Invalid Command, Please try again!!");
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("msg", "exist");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("msg", "active");
+            redirectAttributes.addFlashAttribute("msgText", e.getMessage());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("msg", "fail");
+//            logger.error("save: " + e.getMessage());
+        }
+
+        return "redirect:/admin/department";
     }
 
     @GetMapping("/admin/term/val/{item}")
     @ResponseBody
-    public List<SchoolTerm> getAllEmployees(@PathVariable("item") String item) {
+    public List<SchoolTerm> getAllEmployees(@PathVariable("item") Long item) {
         SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
         return schoolTermRepository.findByIsdeletedAndSchoolGrades(false, schoolGrade);
 

@@ -25,7 +25,7 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
     @Override
     public StudentClassCommand save(StudentClassCommand schoolClass) {
         SchoolClass schoolClass1 = commandToStudentType.convert(schoolClass);
-        Optional<SchoolClass> schl = schoolClassRepository.findByClassTypeAndIsdeleted(schoolClass1.getClassType(),false);
+        Optional<SchoolClass> schl = schoolClassRepository.findByIdAndIsdeleted(schoolClass1.getId(),false);
 
         if (schl.isPresent()) {
             throw new RuntimeException("School Group Already Exists!");
@@ -37,7 +37,7 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
     @Override
     public StudentClassCommand delete(StudentClassCommand schoolClass) {
         SchoolClass schoolClass1 = commandToStudentType.convert(schoolClass);
-        Optional<SchoolClass> schl = schoolClassRepository.findByClassTypeAndIsdeleted(schoolClass1.getClassType(),false);
+        Optional<SchoolClass> schl = schoolClassRepository.findByIdAndIsdeleted(schoolClass1.getId(),false);
 
         SchoolClass schoolSaved = schoolClassRepository.save(schoolClass1);
         return studentClassTypeCommand.convert(schoolSaved);
@@ -61,8 +61,8 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
     }
 
     @Override
-    public SchoolClass findByClassType(String classType) {
-        Optional<SchoolClass> schl = schoolClassRepository.findByClassTypeAndIsdeleted(classType,false);
+    public SchoolClass findByClassType(Long classType) {
+        Optional<SchoolClass> schl = schoolClassRepository.findByIdAndIsdeleted(classType,false);
         if (!schl.isPresent()) {
             throw new RuntimeException("ClassType doesnt exist!");
         }

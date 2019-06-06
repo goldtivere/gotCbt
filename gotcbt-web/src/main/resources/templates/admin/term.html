@@ -79,9 +79,9 @@
 
                     <label for="termSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="termSelect">
+                    <select class="form-control drop-down" th:field="*{schoolGrade}" id="termSelect" required>
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
-                        <option th:each="row : ${dep}" th:value="${row.classType}" th:label="${row.classType}">
+                        <option th:each="row : ${dep}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
                     <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
@@ -91,12 +91,12 @@
                 <div class="form-group">
                     <label for="classId">Select Class:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="classId">
+                    <select class="form-control drop-down" th:field="*{schlDept}" id="classId" required>
                     </select>
 
                 </div>
                 <div class="form-group">
-                    <label>Add Class:</label>
+                    <label>Add Session:</label>
                     <input type="text" class="form-control pull-right" th:field="*{term}"
                            required="required"
                            placeholder="Add Class"/>

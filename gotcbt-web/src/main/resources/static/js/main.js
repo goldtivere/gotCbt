@@ -124,8 +124,8 @@ $(document).ready(function () {
                 data.forEach(function (item, i) {
                     console.log(item.grade + "  i am");
 
-                    var option = "<option value = " + item.grade + ">" + item.grade + "</option>";
-                    $("#classId").append(option);
+                    var option = "<option value = " + item.id + ">" + item.grade + "</option>";
+                    $("#classId").append(option)
                 });
             });
         }
