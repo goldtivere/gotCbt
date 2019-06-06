@@ -42,9 +42,9 @@ public class StudentTermController {
             if (operation.equals("save")) {
                 if (!termCommand.getTerm().equals(null) || termCommand.getSchlDept() != null || termCommand.getSchoolGrade() != null) {
                     if (!termCommand.equals("") || termCommand != null) {
-                        System.out.println("here i am ID: " + termCommand.getId()
+                        System.out.println("here i am ID: " + termCommand.getSchlDept()
                         );
-                        schName.add(studentGradeService.findByGradeName(termCommand.getId()));
+                        schName.add(studentGradeService.findByGradeName(Long.valueOf(termCommand.getSchlDept())));
                         termCommand.setSchoolGrades(schName);
                         termCommand.setCreatedBy(globalController.getLoginUser().getId());
                         termCommand.setDateCreated(LocalDate.now());
@@ -88,7 +88,7 @@ public class StudentTermController {
 //            logger.error("save: " + e.getMessage());
         }
 
-        return "redirect:/admin/department";
+        return "redirect:/admin/term";
     }
 
     @GetMapping("/admin/term/val/{item}")
