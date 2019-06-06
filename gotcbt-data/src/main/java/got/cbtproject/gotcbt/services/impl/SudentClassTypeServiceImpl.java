@@ -62,6 +62,17 @@ public class SudentClassTypeServiceImpl implements StudentClassTypeService {
 
     @Override
     public SchoolClass findByClassType(Long classType) {
+        System.out.println(classType+ " i am here too");
+        Optional<SchoolClass> schl = schoolClassRepository.findByIdAndIsdeleted(classType,false);
+        if (!schl.isPresent()) {
+            throw new RuntimeException("ClassType doesnt exist!");
+        }
+        return schl.get();
+    }
+
+    @Override
+    public SchoolClass findByClassTypes(Long classType) {
+        System.out.println(classType+ " i am here too");
         Optional<SchoolClass> schl = schoolClassRepository.findByIdAndIsdeleted(classType,false);
         if (!schl.isPresent()) {
             throw new RuntimeException("ClassType doesnt exist!");

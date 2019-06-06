@@ -46,8 +46,8 @@ public class SchoolGradeController {
             if (operation.equals("save")) {
                 if (!schoolClass.getSchoolClass().equals(null) || schoolClass.getSchoolClass() != null) {
                     if (!schoolClass.equals("") || schoolClass != null) {
-
-                        schName.add(studentClassTypeService.findByClassType(schoolClass.getClassGrade().getId()));
+                        System.out.println("i am here: " + Long.valueOf(schoolClass.getClassGrade().getClassType()));
+                        schName.add(studentClassTypeService.findByClassType(Long.valueOf(schoolClass.getClassGrade().getClassType())));
                         schoolClass.setSchoolClass(schName);
                         schoolClass.setCreatedBy(globalController.getLoginUser().getId());
                         schoolClass.setDateCreated(LocalDate.now());
@@ -64,7 +64,7 @@ public class SchoolGradeController {
 
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    schName.add(studentClassTypeService.findByClassType(updateClass.getClassGrade().getId()));
+                    schName.add(studentClassTypeService.findByClassType(Long.valueOf(updateClass.getClassGrade().getClassType())));
                     updateClass.setSchoolClass(schName);
                     updateClass.setCreatedBy(globalController.getLoginUser().getId());
                     updateClass.setDateCreated(LocalDate.now());
