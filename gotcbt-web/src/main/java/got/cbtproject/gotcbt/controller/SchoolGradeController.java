@@ -64,6 +64,7 @@ public class SchoolGradeController {
 
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
+                    System.out.println(Long.valueOf(updateClass.getClassGrade().getClassType())+ " ooooook "+ updateClass.getGrade());
                     schName.add(studentClassTypeService.findByClassType(Long.valueOf(updateClass.getClassGrade().getClassType())));
                     updateClass.setSchoolClass(schName);
                     updateClass.setCreatedBy(globalController.getLoginUser().getId());
@@ -81,6 +82,7 @@ public class SchoolGradeController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "exist");
         } catch (RuntimeException e) {
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "active");
             redirectAttributes.addFlashAttribute("msgText", e.getMessage());
 

@@ -79,8 +79,8 @@
 
 
                     <select class="form-control drop-down" th:field="*{classGrade.classType}">
-                        <option th:value="${deptUpdate.schoolClass.get(0).classType}" th:label="${deptUpdate.schoolClass.get(0).classType}" selected="true"></option>
-                        <option th:each="row : ${deptVal}" th:value="${row.classType}" th:label="${row.classType}">
+                        <option th:value="${deptUpdate.schoolClass.get(0).id}" th:label="${deptUpdate.schoolClass.get(0).classType}" selected="true"></option>
+                        <option th:each="row : ${deptVal}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
                     <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
