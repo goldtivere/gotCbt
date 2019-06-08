@@ -82,7 +82,6 @@ public class AdminController {
     public String classGet(Model model, @RequestParam(defaultValue = "0") int page) {
         // PageRequest pageRequest=;
         model.addAttribute("schoolClass", new StudentClassCommand());
-        model.addAttribute("updateClass", new StudentClassCommand());
         model.addAttribute("tabVal",
                 schoolClassRepository.findByIsdeleted(false, new PageRequest(page, 4)));
         model.addAttribute("currentPage", page);

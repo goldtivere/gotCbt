@@ -14,7 +14,7 @@ public interface SchoolGradeRepository extends CrudRepository<SchoolGrade, Long>
 
     List<SchoolGrade> findByIsdeleted(boolean isdeleted, Pageable pageable);
 
-    List<SchoolGrade> findByIsdeletedAndAndSchoolClass(boolean isdeleted, SchoolClass schoolClass, Pageable pageable);
+    List<SchoolGrade> findByIsdeletedAndSchoolClass(boolean isdeleted, SchoolClass schoolClass, Pageable pageable);
 
-    List<SchoolGrade> findByIsdeletedAndAndSchoolClass(boolean isdeleted, SchoolClass schoolClass);
+    List<SchoolGrade> findByIsdeletedAndSchoolClass(boolean isdeleted, SchoolClass schoolClass);
 }

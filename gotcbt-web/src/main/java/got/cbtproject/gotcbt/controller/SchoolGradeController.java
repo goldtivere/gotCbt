@@ -46,7 +46,7 @@ public class SchoolGradeController {
             if (operation.equals("save")) {
                 if (!schoolClass.getSchoolClass().equals(null) || schoolClass.getSchoolClass() != null) {
                     if (!schoolClass.equals("") || schoolClass != null) {
-                        System.out.println("i am here: " + Long.valueOf(schoolClass.getClassGrade().getClassType()));
+
                         schName.add(studentClassTypeService.findByClassType(Long.valueOf(schoolClass.getClassGrade().getClassType())));
                         schoolClass.setSchoolClass(schName);
                         schoolClass.setCreatedBy(globalController.getLoginUser().getId());
@@ -64,7 +64,6 @@ public class SchoolGradeController {
 
             } else if (operation.equals("update")) {
                 if (!updateClass.equals("") || updateClass != null) {
-                    System.out.println(Long.valueOf(updateClass.getClassGrade().getClassType())+ " ooooook "+ updateClass.getGrade());
                     schName.add(studentClassTypeService.findByClassType(Long.valueOf(updateClass.getClassGrade().getClassType())));
                     updateClass.setSchoolClass(schName);
                     updateClass.setCreatedBy(globalController.getLoginUser().getId());
@@ -112,7 +111,7 @@ public class SchoolGradeController {
     @ResponseBody
     public List<SchoolGrade> getAllEmployees(@PathVariable("item") Long item) {
         SchoolClass schoolClass1 = studentClassTypeService.findByClassType(item);
-        return schoolGradeRepository.findByIsdeletedAndAndSchoolClass(false, schoolClass1);
+        return schoolGradeRepository.findByIsdeletedAndSchoolClass(false, schoolClass1);
 
     }
 
