@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface SchoolTermRepository extends CrudRepository<SchoolTerm, Long> {
     List<SchoolTerm> findByIsdeletedAndSchoolGrades(boolean isdeleted, SchoolGrade schoolGrade);
     Optional<SchoolTerm> findByTermAndIsdeleted(String term, boolean isdeleted);
+    Optional<SchoolTerm> findByIdAndIsdeleted(Long schoolTerm, boolean isdeleted);
 }

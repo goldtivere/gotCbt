@@ -107,7 +107,7 @@ public class SchoolGradeController {
 //
 //    }
 
-    @GetMapping("/admin/department/val/{item}")
+    @GetMapping(value={"/admin/department/val/{item}","/admin/term/update/department/val/{item}"})
     @ResponseBody
     public List<SchoolGrade> getAllEmployees(@PathVariable("item") Long item) {
         SchoolClass schoolClass1 = studentClassTypeService.findByClassType(item);

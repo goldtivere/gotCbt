@@ -1,13 +1,16 @@
 package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.TermCommand;
+import got.cbtproject.gotcbt.converters.TermToCommand;
 import got.cbtproject.gotcbt.model.SchoolGrade;
 import got.cbtproject.gotcbt.model.SchoolTerm;
+import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.repositories.SchoolGradeRepository;
 import got.cbtproject.gotcbt.repositories.SchoolTermRepository;
 import got.cbtproject.gotcbt.services.StudentGradeService;
 import got.cbtproject.gotcbt.services.StudentTermService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,13 +25,18 @@ public class StudentTermController {
     private final StudentGradeService studentGradeService;
     private final StudentTermService studentTermService;
     private final GlobalController globalController;
+    private final TermToCommand termToCommand;
+    private final SchoolClassRepository schoolClassRepository;
 
-    public StudentTermController(SchoolGradeRepository schoolGradeRepository, SchoolTermRepository schoolTermRepository, StudentGradeService studentGradeService, StudentTermService studentTermService, GlobalController globalController) {
+
+    public StudentTermController(SchoolGradeRepository schoolGradeRepository, SchoolTermRepository schoolTermRepository, StudentGradeService studentGradeService, StudentTermService studentTermService, GlobalController globalController, TermToCommand termToCommand, SchoolClassRepository schoolClassRepository) {
         this.schoolGradeRepository = schoolGradeRepository;
         this.schoolTermRepository = schoolTermRepository;
         this.studentGradeService = studentGradeService;
         this.studentTermService = studentTermService;
         this.globalController = globalController;
+        this.termToCommand = termToCommand;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @PostMapping("/admin/term/{operation}")
@@ -97,5 +105,18 @@ public class StudentTermController {
         SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
         return schoolTermRepository.findByIsdeletedAndSchoolGrades(false, schoolGrade);
 
+    }
+
+    @GetMapping("/admin/term/update/{id}")
+    public String todoOperation(Model model, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+
+        model.addAttribute("deptUpdate", termToCommand.convert(studentTermService.findById(id)));
+        // model.addAttribute("deptVal", schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("dep", schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("termEdit", new TermCommand());
+//            if (id == null || id.equals(null)) {
+//                redirectAttributes.addFlashAttribute("msg", "notfound");
+//            }
+        return "admin/termedit";
     }
 }

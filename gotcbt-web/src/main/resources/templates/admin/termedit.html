@@ -13,7 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <p class="pull-right">Student\Term</p>
+            <p class="pull-right">Student\Edit Term</p>
         </div>
     </div>
     <div class="row">
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${term}" th:action="@{/admin/term/save}" method="post">
+            <form th:object="${termEdit}" th:action="@{/admin/term/save}" method="post">
 
                 <div class="form-group dropSelect">
 
@@ -91,7 +91,7 @@
                 <div class="form-group">
                     <label for="classId">Select Class:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="classId" required>
+                    <select class="form-control drop-down" th:field="*{schlDept}" id="classIds" required>
                     </select>
 
                 </div>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="float-right btn-send">
                     <button class="btn btn-success btn-md"><span class="glyphicon glyphicon-send"></span>
-                        Save
+                        Update
                     </button>
                 </div>
 

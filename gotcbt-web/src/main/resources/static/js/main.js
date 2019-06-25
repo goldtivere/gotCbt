@@ -13,6 +13,7 @@ $(document).ready(function () {
     $('#termSelect').change(getTermContent);
     $('#classId').change(getTabContent);
 
+
     function getContent() {
 
         //create url to request fragment
@@ -108,24 +109,24 @@ $(document).ready(function () {
     function getTermContent() {
         $('#ajaxLoader').show();
         var country = $("#termSelect").val();
-
+        $(".panels .replaceDivs").hide();
         if(country=="default" || country== null || country=="")
         {
-            $(".panels .replaceDivs").hide();
+
         }
         else {
 
             var url = "./department/val/" + country;
             console.log(url + " here i am");
             $.get(url, function (data) {
-                $("#classId").empty();
+                $("#classId,#classIds").empty();
                 var options = " <option value='default' selected='true'>-- SELECT GRADE--</option>";
-                $("#classId").append(options);
+                $("#classId,#classIds").append(options);
                 data.forEach(function (item, i) {
                     console.log(item.grade + "  i am");
 
                     var option = "<option value = " + item.id + ">" + item.grade + "</option>";
-                    $("#classId").append(option)
+                    $("#classId,#classIds").append(option)
                 });
             });
         }

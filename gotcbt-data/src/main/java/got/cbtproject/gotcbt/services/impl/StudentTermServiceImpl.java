@@ -32,4 +32,15 @@ public class StudentTermServiceImpl implements StudentTermService {
         SchoolTerm schoolTerm1=schoolTermRepository.save(schoolTerm);
         return termToCommand.convert(schoolTerm1);
     }
+
+    @Override
+    public SchoolTerm findById(Long id) {
+        Optional<SchoolTerm> schl = schoolTermRepository.findByIdAndIsdeleted(id,false);
+
+        if (!schl.isPresent()) {
+            throw new RuntimeException("Id doesnt exist!");
+        }
+
+        return schl.get();
+    }
 }
