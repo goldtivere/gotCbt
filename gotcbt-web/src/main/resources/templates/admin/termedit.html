@@ -73,14 +73,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${termEdit}" th:action="@{/admin/term/save}" method="post">
+            <form th:object="${deptUpdates}" th:action="@{/admin/term/save}" method="post">
 
                 <div class="form-group dropSelect">
 
                     <label for="termSelect">Select Department:</label>
 
                     <select class="form-control drop-down" th:field="*{schoolGrade}" id="termSelect" required>
-                        <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
+                        <option th:value="${depss.schoolClass.get(0).id}" th:label="${depss.schoolClass.get(0).classType}" selected="true"></option>
                         <option th:each="row : ${dep}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
@@ -92,6 +92,7 @@
                     <label for="classId">Select Class:</label>
 
                     <select class="form-control drop-down" th:field="*{schlDept}" id="classIds" required>
+                        <option th:value="${deptUpdates.schoolGrades.get(0).id}" th:label="${deptUpdates.schoolGrades.get(0).grade}" selected="true"></option>
                     </select>
 
                 </div>

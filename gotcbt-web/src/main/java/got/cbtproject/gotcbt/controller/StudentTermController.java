@@ -110,8 +110,10 @@ public class StudentTermController {
     @GetMapping("/admin/term/update/{id}")
     public String todoOperation(Model model, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("deptUpdate", termToCommand.convert(studentTermService.findById(id)));
+        model.addAttribute("deptUpdates", termToCommand.convert(studentTermService.findById(id)));
         // model.addAttribute("deptVal", schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("depss", studentGradeService.findById(studentTermService.findById(id).getSchoolGrades().get(0).getId()));
+
         model.addAttribute("dep", schoolClassRepository.findByIsdeleted(false));
         model.addAttribute("termEdit", new TermCommand());
 //            if (id == null || id.equals(null)) {

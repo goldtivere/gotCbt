@@ -120,8 +120,9 @@ $(document).ready(function () {
             console.log(url + " here i am");
             $.get(url, function (data) {
                 $("#classId,#classIds").empty();
+                $("#classIds").empty();
                 var options = " <option value='default' selected='true'>-- SELECT GRADE--</option>";
-                $("#classId,#classIds").append(options);
+                $("#classId").append(options);
                 data.forEach(function (item, i) {
                     console.log(item.grade + "  i am");
 
