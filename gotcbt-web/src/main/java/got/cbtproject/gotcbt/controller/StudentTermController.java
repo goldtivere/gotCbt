@@ -50,8 +50,6 @@ public class StudentTermController {
             if (operation.equals("save")) {
                 if (!termCommand.getTerm().equals(null) || termCommand.getSchlDept() != null || termCommand.getSchoolGrade() != null) {
                     if (!termCommand.equals("") || termCommand != null) {
-                        System.out.println("here i am ID: " + termCommand.getSchlDept()
-                        );
                         schName.add(studentGradeService.findByGradeName(Long.valueOf(termCommand.getSchlDept())));
                         termCommand.setSchoolGrades(schName);
                         termCommand.setCreatedBy(globalController.getLoginUser().getId());
@@ -68,17 +66,21 @@ public class StudentTermController {
                 }
 
             } else if (operation.equals("update")) {
-//                if (!updateClass.equals("") || updateClass != null) {
-//                    schName.add(studentClassTypeService.findByClassType(updateClass.getClassGrade().getClassType()));
-//                    updateClass.setSchoolClass(schName);
-//                    updateClass.setCreatedBy(globalController.getLoginUser().getId());
-//                    updateClass.setDateCreated(LocalDate.now());
-//                    updateClass.setIsdeleted(false);
-//                    studentGradeService.save(updateClass);
-//                    redirectAttributes.addFlashAttribute("msg", "success");
-//                } else {
-//                    redirectAttributes.addFlashAttribute("msg", "Please enter value in field!!");
-//                }
+                if (!updateClass.equals("") || updateClass != null) {
+                    System.out.println("here i am ID: " + updateClass.getSchlDept()
+                    );
+                    schName.add(studentGradeService.findByGradeName(Long.valueOf(updateClass.getSchlDept())));
+                    updateClass.setSchoolGrades(schName);
+                    updateClass.setCreatedBy(globalController.getLoginUser().getId());
+                    updateClass.setDateCreated(LocalDate.now());
+                    updateClass.setIsdeleted(false);
+
+                    studentTermService.save(updateClass);
+                    redirectAttributes.addFlashAttribute("msg", "active");
+                    redirectAttributes.addFlashAttribute("msgText","update Successful!!");
+                } else {
+                    redirectAttributes.addFlashAttribute("msg", "Invalid Id");
+                }
             } else {
                 redirectAttributes.addFlashAttribute("msg", "Invalid Command, Please try again!!");
             }
@@ -120,5 +122,22 @@ public class StudentTermController {
 //                redirectAttributes.addFlashAttribute("msg", "notfound");
 //            }
         return "admin/termedit";
+    }
+
+    @GetMapping("/admin/term/delete/{id}")
+    public String delete(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+        TermCommand updateClass = new TermCommand();
+        if (id == null || id.equals(null)) {
+            redirectAttributes.addFlashAttribute("msg", "active");
+        }
+
+        updateClass = termToCommand.convert(studentTermService.findById(id));
+        updateClass.setDeletedBy(globalController.getLoginUser().getId());
+        updateClass.setDateDeleted(LocalDate.now());
+        updateClass.setIsdeleted(true);
+        studentTermService.delete(updateClass);
+        redirectAttributes.addFlashAttribute("msg", "delete");
+
+        return "redirect:/admin/term";
     }
 }

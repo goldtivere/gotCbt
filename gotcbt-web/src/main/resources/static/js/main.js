@@ -127,7 +127,8 @@ $(document).ready(function () {
                     console.log(item.grade + "  i am");
 
                     var option = "<option value = " + item.id + ">" + item.grade + "</option>";
-                    $("#classId,#classIds").append(option)
+                    $("#classIds").append(option)
+                    $("#classId").append(option)
                 });
             });
         }

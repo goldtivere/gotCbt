@@ -6,4 +6,5 @@ import got.cbtproject.gotcbt.model.SchoolTerm;
 public interface StudentTermService {
     TermCommand save(TermCommand termCommand);
     SchoolTerm findById(Long id);
+    TermCommand delete(TermCommand schoolClass);
 }

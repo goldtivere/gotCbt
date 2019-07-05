@@ -35,12 +35,28 @@ public class StudentTermServiceImpl implements StudentTermService {
 
     @Override
     public SchoolTerm findById(Long id) {
-        Optional<SchoolTerm> schl = schoolTermRepository.findByIdAndIsdeleted(id,false);
+        try {
+            Optional<SchoolTerm> schl = schoolTermRepository.findByIdAndIsdeleted(id, false);
 
-        if (!schl.isPresent()) {
-            throw new RuntimeException("Id doesnt exist!");
+            if (!schl.isPresent()) {
+                throw new RuntimeException("Id doesnt exist!");
+            }
+
+            return schl.get();
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        return schl.get();
+    @Override
+    public TermCommand delete(TermCommand schoolClass) {
+        SchoolTerm schoolClass1 = commandToTerm.convert(schoolClass);
+        // Optional<SchoolGrade> schl = schoolGradeRepository.findByClassType(schoolClass1.getClassType());
+
+        SchoolTerm schoolSaved = schoolTermRepository.save(schoolClass1);
+        return termToCommand.convert(schoolSaved);
     }
 }
