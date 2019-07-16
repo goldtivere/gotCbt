@@ -119,16 +119,18 @@ $(document).ready(function () {
             var url = "./department/val/" + country;
             console.log(url + " here i am");
             $.get(url, function (data) {
-                $("#classId,#classIds").empty();
-                $("#classIds").empty();
+                $("#classId,#classIds,#classIdss").empty();
+
                 var options = " <option value='default' selected='true'>-- SELECT GRADE--</option>";
                 $("#classId").append(options);
+                $("#classIdss").append(options)
                 data.forEach(function (item, i) {
                     console.log(item.grade + "  i am");
 
                     var option = "<option value = " + item.id + ">" + item.grade + "</option>";
                     $("#classIds").append(option)
                     $("#classId").append(option)
+                    $("#classIdss").append(option)
                 });
             });
         }

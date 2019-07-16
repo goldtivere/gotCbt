@@ -73,15 +73,15 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form th:object="${quest}" th:action="@{/admin/department/save}" method="post">
+            <form th:object="${quest}" th:action="@{/admin/question/save}" method="post" enctype="multipart/form-data">
 
                 <div class="form-group dropSelect">
 
-                    <label for="employeeIdSelects">Select Department:</label>
+                    <label for="termSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="employeeIdSelects">
+                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="termSelect" required>
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
-                        <option th:each="row : ${depts}" th:value="${row.classType}" th:label="${row.classType}">
+                        <option th:each="row : ${depts}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
 
                     <div class="col-md-4" id="ajaxLoader" style="padding-top:4px;display:none"><img
@@ -89,20 +89,20 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="classId">Select Class:</label>
+                    <label for="classIdss">Select Class:</label>
 
-                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="classId">
+                    <select class="form-control drop-down" th:field="*{classGrade.classType}" id="classIdss" required>
                     </select>
 
                 </div>
                 <div class="form-group">
-                    <label for="fileUpload">Select file:</label>
-                    <input type="file" id="fileUpload" class="form-control"  placeholder="Upload File"  ></input>
+                    <label for="file">Select file:</label>
+                    <input type="file" id="file" name="file" accept=".xls,.xlsx" class="form-control"  placeholder="Upload File"  ></input>
 
                 </div>
                 <div class="form-group">
                     <div class="pull-right">
-                    <i class="fa fa-download" aria-hidden="true"></i><a href="#" th:href="@{~/download/file/decSCB1.csv}">Sample File</a>
+                    <i class="fa fa-download" aria-hidden="true"></i><a href="#" th:href="@{~/download/file/sampleFile.xlsx}">Sample File</a>
                     </div>
                 </div>
                 <div class="float-right btn-send">
