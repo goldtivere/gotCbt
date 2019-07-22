@@ -7,6 +7,7 @@ import got.cbtproject.gotcbt.enums.Student;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
 import got.cbtproject.gotcbt.repositories.SchoolGradeRepository;
+import got.cbtproject.gotcbt.repositories.SchoolYearRepository;
 import got.cbtproject.gotcbt.services.StudentClassTypeService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,14 @@ public class AdminController {
     private final SchoolClassRepository schoolClassRepository;
     private final SchoolGradeRepository schoolGradeRepository;
     private final GlobalController globalController;
+    private final SchoolYearRepository schoolYearRepository;
 
-    public AdminController(StudentClassTypeService studentClassTypeService, SchoolClassRepository schoolClassRepository, SchoolGradeRepository schoolGradeRepository, GlobalController globalController) {
+    public AdminController(StudentClassTypeService studentClassTypeService, SchoolClassRepository schoolClassRepository, SchoolGradeRepository schoolGradeRepository, GlobalController globalController, SchoolYearRepository schoolYearRepository) {
         this.studentClassTypeService = studentClassTypeService;
         this.schoolClassRepository = schoolClassRepository;
         this.schoolGradeRepository = schoolGradeRepository;
         this.globalController = globalController;
+        this.schoolYearRepository = schoolYearRepository;
     }
 
     @GetMapping("student")
@@ -43,7 +46,10 @@ public class AdminController {
     }
 
     @GetMapping("subject")
-    public String subject() {
+    public String subject(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("val",  schoolYearRepository.findAll());
+        model.addAttribute("term", new TermCommand());
+        model.addAttribute("dep",schoolClassRepository.findByIsdeleted(false));
         return "admin/subject";
     }
 

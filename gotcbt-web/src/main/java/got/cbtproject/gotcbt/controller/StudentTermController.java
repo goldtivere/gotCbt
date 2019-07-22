@@ -16,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StudentTermController {
@@ -77,7 +79,7 @@ public class StudentTermController {
 
                     studentTermService.save(updateClass);
                     redirectAttributes.addFlashAttribute("msg", "active");
-                    redirectAttributes.addFlashAttribute("msgText","update Successful!!");
+                    redirectAttributes.addFlashAttribute("msgText", "update Successful!!");
                 } else {
                     redirectAttributes.addFlashAttribute("msg", "Invalid Id");
                 }
@@ -103,8 +105,18 @@ public class StudentTermController {
 
     @GetMapping("/admin/term/val/{item}")
     @ResponseBody
-    public List<SchoolTerm> getAllEmployees(@PathVariable("item") Long item) {
-        SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
+    public List<SchoolTerm> getAllTerm(@PathVariable("item") Long item) {
+        System.out.println("Grade name: " + item);
+        Map<String, Object> termAll = new HashMap<>();
+        List<SchoolTerm> val = new ArrayList<>();
+       SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
+//        val = schoolTermRepository.findByIsdeletedAndSchoolGrades(false, schoolGrade);
+//
+//        for (SchoolTerm t : val) {
+//            termAll.put("id", t.getId());
+//            termAll.put("term", t.getTerm());
+//        }
+
         return schoolTermRepository.findByIsdeletedAndSchoolGrades(false, schoolGrade);
 
     }

@@ -1,5 +1,6 @@
 package got.cbtproject.gotcbt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,24 +20,26 @@ public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonIgnore
     @Column(name = "createdBy")
     private Long createdBy;
 
+    @JsonIgnore
     @Column(name = "datecreated")
     private LocalDate datecreated;
-
+    @JsonIgnore
     @Column(name = "updatedBy")
     private Long updatedBy;
-
+    @JsonIgnore
     @Column(name = "dateupdated")
     private LocalDate dateupdated;
-
-    @Column(name="deletedBy")
+    @JsonIgnore
+    @Column(name = "deletedBy")
     private Long deletedBy;
-
-    @Column(name="dateDeleted")
+    @JsonIgnore
+    @Column(name = "dateDeleted")
     private LocalDate dateDeleted;
-
+    @JsonIgnore
     @Column(name = "isdeleted")
     private boolean isdeleted;
 }

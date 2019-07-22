@@ -12,6 +12,7 @@ $(document).ready(function () {
     $('#employeeIdSelect').change(getContent);
     $('#termSelect').change(getTermContent);
     $('#classId').change(getTabContent);
+    $('#classIdSub').change(getSubContent);
 
 
     function getContent() {
@@ -106,6 +107,37 @@ $(document).ready(function () {
         }
         $('#ajaxLoader').hide();
     }
+    function getSubContent() {
+
+        $('#ajaxLoader').show();
+        var country = $("#classIdSub").val();
+        $(".panels .replaceDivs").hide();
+        if(country=="default" || country== null || country=="")
+        {
+
+        }
+        else {
+
+            var url = "./term/val/" + country;
+            console.log(url + " here i am");
+            $.get(url, function (data) {
+                $("#termId").empty();
+
+                var options = " <option value='default' selected='true'>-- SELECT TERM--</option>";
+                $("#termId").append(options);
+                data.forEach(function (item, i) {
+                    console.log(item.term + "  i am");
+
+                    var option = "<option value = " + item.id + ">" + item.term + "</option>";
+                    $("#termId").append(option);
+                });
+            });
+        }
+
+
+        $('#ajaxLoader').hide();
+
+    }
     function getTermContent() {
         $('#ajaxLoader').show();
         var country = $("#termSelect").val();
@@ -131,6 +163,7 @@ $(document).ready(function () {
                     $("#classIds").append(option)
                     $("#classId").append(option)
                     $("#classIdss").append(option)
+                    $("#classIdSub").append(option)
                 });
             });
         }
