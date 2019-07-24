@@ -3,6 +3,7 @@ package got.cbtproject.gotcbt.controller;
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.command.StudentGradeCommand;
 import got.cbtproject.gotcbt.command.TermCommand;
+import got.cbtproject.gotcbt.enums.EntryType;
 import got.cbtproject.gotcbt.enums.Student;
 import got.cbtproject.gotcbt.model.SchoolClass;
 import got.cbtproject.gotcbt.repositories.SchoolClassRepository;
@@ -50,6 +51,7 @@ public class AdminController {
         model.addAttribute("val",  schoolYearRepository.findAll());
         model.addAttribute("term", new TermCommand());
         model.addAttribute("dep",schoolClassRepository.findByIsdeleted(false));
+        model.addAttribute("ent", EntryType.values());
         return "admin/subject";
     }
 

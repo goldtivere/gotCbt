@@ -5,7 +5,9 @@ $(document).ready(function () {
     // });
 
     //call function when page is loaded
+    getSubj();
     getContent();
+
     getTermContent();
 
     //set on change listener
@@ -13,6 +15,7 @@ $(document).ready(function () {
     $('#termSelect').change(getTermContent);
     $('#classId').change(getTabContent);
     $('#classIdSub').change(getSubContent);
+    $('#entryType').change(getSel);
 
 
     function getContent() {
@@ -27,20 +30,20 @@ $(document).ready(function () {
             $(".panel .replaceDiv").hide();
         } else {
             $(".panel .replaceDiv").show();
-            var url = "./department/val/"+uu;
-            var urls = "./department/"+uu;
+            var url = "./department/val/" + uu;
+            var urls = "./department/" + uu;
             var table = $('#employeesTable').DataTable({
                 "destroy": true,
                 "sAjaxSource": url,
                 "sAjaxDataProp": "",
-                "order": [[ 0, "asc" ]],
+                "order": [[0, "asc"]],
                 "aoColumns": [
 
-                    { "mData": "grade" },
+                    {"mData": "grade"},
                     {
                         "mData": "id",
-                        "render": function(data, type, row, meta){
-                            if(type === 'display'){
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
                                 data = '<a href="/admin/department/update/' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>' +
                                     '<a class="confirmation" href="/admin/department/delete/' + data + '" onclick = "if (! confirm(\'Are you sure you want to delete?\')) { return false; }"><span class="fa fa-trash" data-toggle="tooltip"  title="Sent to Trash Box"></span></a>';
                             }
@@ -53,12 +56,35 @@ $(document).ready(function () {
                 ]
             })
             console.log(url);
-           // $('#replace_div').load(urls);
+            // $('#replace_div').load(urls);
 
             //load fragment and replace content
             // $('#replace_div').load(url);
         }
         $('#ajaxLoader').hide();
+    }
+
+    function getSubj() {
+
+        //create url to request fragment
+
+        $(".replace_div1").hide();
+        $(".replace_div2").hide();
+
+    }
+    function getSel() {
+
+        var uu = $('#entryType').val();
+        if (uu == "Entry") {
+
+            $(".replace_div1").show();
+            $(".replace_div2").hide();
+        } else if(uu=="Upload"){
+
+            $(".replace_div1").hide();
+            $(".replace_div2").show();
+        }
+
     }
 
     function getTabContent() {
@@ -70,24 +96,24 @@ $(document).ready(function () {
         // });
         var uu = $('#classId').val();
 
-        if (uu == "default" || uu == "" || uu==null) {
+        if (uu == "default" || uu == "" || uu == null) {
             $(".panels .replaceDivs").hide(100);
         } else {
             $(".panels .replaceDivs").show(100);
-            var url = "./term/val/"+uu;
-            var urls = "./term/"+uu;
+            var url = "./term/val/" + uu;
+            var urls = "./term/" + uu;
             var table = $('#tabTable').DataTable({
                 "destroy": true,
                 "sAjaxSource": url,
                 "sAjaxDataProp": "",
-                "order": [[ 0, "asc" ]],
+                "order": [[0, "asc"]],
                 "aoColumns": [
 
-                    { "mData": "term" },
+                    {"mData": "term"},
                     {
                         "mData": "id",
-                        "render": function(data, type, row, meta){
-                            if(type === 'display'){
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
                                 data = '<a href="/admin/term/update/' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>' +
                                     '<a class="confirmation" href="/admin/term/delete/' + data + '" onclick = "if (! confirm(\'Are you sure you want to delete?\')) { return false; }"><span class="fa fa-trash" data-toggle="tooltip"  title="Sent to Trash Box"></span></a>';
                             }
@@ -107,16 +133,15 @@ $(document).ready(function () {
         }
         $('#ajaxLoader').hide();
     }
+
     function getSubContent() {
 
         $('#ajaxLoader').show();
         var country = $("#classIdSub").val();
         $(".panels .replaceDivs").hide();
-        if(country=="default" || country== null || country=="")
-        {
+        if (country == "default" || country == null || country == "") {
 
-        }
-        else {
+        } else {
 
             var url = "./term/val/" + country;
             console.log(url + " here i am");
@@ -138,15 +163,14 @@ $(document).ready(function () {
         $('#ajaxLoader').hide();
 
     }
+
     function getTermContent() {
         $('#ajaxLoader').show();
         var country = $("#termSelect").val();
         $(".panels .replaceDivs").hide();
-        if(country=="default" || country== null || country=="")
-        {
+        if (country == "default" || country == null || country == "") {
 
-        }
-        else {
+        } else {
 
             var url = "./department/val/" + country;
             console.log(url + " here i am");
