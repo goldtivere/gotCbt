@@ -2,6 +2,7 @@ package got.cbtproject.gotcbt.controller;
 
 import got.cbtproject.gotcbt.command.StudentClassCommand;
 import got.cbtproject.gotcbt.command.StudentGradeCommand;
+import got.cbtproject.gotcbt.command.SubjectCommand;
 import got.cbtproject.gotcbt.command.TermCommand;
 import got.cbtproject.gotcbt.enums.EntryType;
 import got.cbtproject.gotcbt.enums.Student;
@@ -49,7 +50,7 @@ public class AdminController {
     @GetMapping("subject")
     public String subject(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("val",  schoolYearRepository.findAll());
-        model.addAttribute("term", new TermCommand());
+        model.addAttribute("subCom", new SubjectCommand());
         model.addAttribute("dep",schoolClassRepository.findByIsdeleted(false));
         model.addAttribute("ent", EntryType.values());
         return "admin/subject";

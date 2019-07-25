@@ -73,13 +73,13 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form th:object="${term}" th:action="@{/admin/term/save}" method="post">
+            <form th:object="${subCom}" th:action="@{/admin/term/save}" method="post">
 
                 <div class="form-group dropSelect">
                     <div class="form-group">
                         <label for="year">Select Year:</label>
 
-                        <select class="form-control drop-down" th:field="*{schlDept}" id="year" required>
+                        <select class="form-control drop-down" th:field="*{subjectYear}" id="year" required>
                             <option value="default" selected="true">-- SELECT YEAR--</option>
                             <option th:each="row : ${val}" th:value="${row.id}" th:label="${row.schoolYear}">
                         </select>
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <label for="classIdSub">Select Class:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="classIdSub" required>
+                    <select class="form-control drop-down" th:field="*{dept}" id="classIdSub" required>
                         <option value="default" selected="true">-- SELECT GRADE--</option>
                     </select>
 
@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label for="termId">Select Term:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="termId" required>
+                    <select class="form-control drop-down" th:field="*{schoolTerm}" id="termId" required>
                         <option value="default" selected="true">-- SELECT TERM--</option>
                     </select>
 
@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label for="entryType">Entry Type:</label>
 
-                    <select class="form-control drop-down" th:field="*{schlDept}" id="entryType" required>
+                    <select class="form-control drop-down" th:field="*{entryType}" id="entryType" required>
                         <option value="default" selected="true">-- SELECT ENTRY TYPE--</option>
                         <option th:each="row : ${ent}" th:value="${row.name()}" th:label="${row.name()}">
                     </select>
@@ -132,7 +132,7 @@
                 <div class="replace_div1">
                 <div class="form-group">
                     <label>Select Subject:</label>
-                    <input type="text" class="form-control pull-right" th:field="*{term}"
+                    <input type="text" class="form-control pull-right" th:field="*{subjectName}"
                            required="required"
                            placeholder="Subject"/>
                 </div>
