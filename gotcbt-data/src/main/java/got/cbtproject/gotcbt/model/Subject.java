@@ -7,10 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,17 +15,19 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tbsubject")
-public class Subject  extends BaseEntity{
+public class Subject extends BaseEntity {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @OneToMany
+
     @Column(name = "school_class")
-    private List<SchoolGrade> schoolGrade;
-    @OneToMany
+    private Long schoolGrade;
+
+
     @Column(name = "term")
-    private List<SchoolTerm> term= new ArrayList<>();
-    @OneToMany
+    private Long term;
+
+
     @Column(name = "year")
-    private List<SchoolYear> year= new ArrayList<>();
+    private Long year ;
 }

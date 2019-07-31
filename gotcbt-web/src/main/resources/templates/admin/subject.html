@@ -50,7 +50,7 @@
                 </button>
                 <strong>Department doesnt exist or Class Exists! Please enter valid department or Class</strong>
             </div>
-            <div th:if="${msg eq 'active'}" class="alert alert-danger alert-dismissable">
+            <div th:if="${msg eq 'active'}" class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
@@ -62,7 +62,7 @@
                 </button>
                 <strong>Please select Department!!!</strong>
             </div>
-            <div th:if="${msg eq 'active_fail'}" class="alert alert-danger alert-dismissable">
+            <div th:if="${msg eq 'active_fail'}" class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">&times;
                 </button>
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form th:object="${subCom}" th:action="@{/admin/term/save}" method="post">
+            <form th:object="${subCom}" th:action="@{/admin/subject/save}" method="post">
 
                 <div class="form-group dropSelect">
                     <div class="form-group">
@@ -87,7 +87,7 @@
                     </div>
                     <label for="termSelect">Select Department:</label>
 
-                    <select class="form-control drop-down" th:field="*{schoolGrade}" id="termSelect" required>
+                    <select class="form-control drop-down" th:field="*{dept}" id="termSelect" required>
                         <option value="default" selected="true">-- SELECT DEPARTMENT--</option>
                         <option th:each="row : ${dep}" th:value="${row.id}" th:label="${row.classType}">
                     </select>
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <label for="classIdSub">Select Class:</label>
 
-                    <select class="form-control drop-down" th:field="*{dept}" id="classIdSub" required>
+                    <select class="form-control drop-down" th:field="*{schoolGrade}" id="classIdSub" required>
                         <option value="default" selected="true">-- SELECT GRADE--</option>
                     </select>
 

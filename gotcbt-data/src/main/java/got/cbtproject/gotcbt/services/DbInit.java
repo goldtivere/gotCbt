@@ -3,12 +3,15 @@ package got.cbtproject.gotcbt.services;
 import got.cbtproject.gotcbt.enums.RolePermission;
 import got.cbtproject.gotcbt.model.Role;
 import got.cbtproject.gotcbt.model.Users;
+import got.cbtproject.gotcbt.repositories.SubjectRepo;
 import got.cbtproject.gotcbt.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -16,16 +19,19 @@ public class DbInit implements CommandLineRunner {
 //implements CommandLineRunner
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private SubjectRepo subjectRepo;
 
-    public DbInit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DbInit(UserRepository userRepository, PasswordEncoder passwordEncoder, SubjectRepo subjectRepo) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.subjectRepo = subjectRepo;
     }
 
     @Override
     public void run(String... args) {
         // Delete all
-       // this.userRepository.deleteAll();
+       this.userRepository.deleteAll();
+       //subjectRepo.deleteAll();
 
          //Crete users
         Set<Role> roles = new HashSet<>();
@@ -65,9 +71,9 @@ public class DbInit implements CommandLineRunner {
 
         Users danss = new Users("2134", passwordEncoder.encode("2345"), 1, roles2, permissions2);
 
-//        List<Users> users = Arrays.asList(dan, dans, danss);
-//
-//        // Save to db
-//        this.userRepository.saveAll(users);
+        List<Users> users = Arrays.asList(dan, dans, danss);
+
+        // Save to db
+        this.userRepository.saveAll(users);
     }
 }

@@ -3,7 +3,9 @@ package got.cbtproject.gotcbt.converters;
 import got.cbtproject.gotcbt.command.SubjectCommand;
 import got.cbtproject.gotcbt.model.Subject;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CommandToSubject implements Converter<SubjectCommand, Subject> {
     @Override
     public Subject convert(SubjectCommand source) {
