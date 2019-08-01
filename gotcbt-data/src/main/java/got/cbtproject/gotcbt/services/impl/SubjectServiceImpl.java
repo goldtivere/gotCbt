@@ -45,14 +45,19 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<Subject> findAll() {
-        return null;
+    public List<Subject> findSubject(Long term, Long year, Long dept) {
+        List<Subject> schl = subjectRepo.findByTermAndSchoolGradeAndYearAndIsdeleted(term,dept,year,false);
+        if (schl.isEmpty()) {
+            throw new RuntimeException("ClassType doesnt exist!");
+        }
+        return schl;
     }
 
     @Override
     public SchoolGrade findById(SchoolGrade grade) {
 
-       return null;
+
+        return null;
 
     }
 }

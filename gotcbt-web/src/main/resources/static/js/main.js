@@ -16,6 +16,7 @@ $(document).ready(function () {
     $('#classId').change(getTabContent);
     $('#classIdSub').change(getSubContent);
     $('#entryType').change(getSel);
+    $('#termId').change(getSubjectContent);
 
 
     function getContent() {
@@ -67,7 +68,7 @@ $(document).ready(function () {
     function getSubj() {
 
         //create url to request fragment
-
+        $(".panel .replaceDivs").hide();
         $(".replace_div1").hide();
         $(".replace_div2").hide();
 
@@ -75,6 +76,7 @@ $(document).ready(function () {
     function getSel() {
 
         var uu = $('#entryType').val();
+
         if (uu == "Entry") {
 
             $(".replace_div1").show();
@@ -83,6 +85,7 @@ $(document).ready(function () {
 
             $(".replace_div1").hide();
             $(".replace_div2").show();
+
         }
 
     }
@@ -195,6 +198,54 @@ $(document).ready(function () {
 
         $('#ajaxLoader').hide();
 
+    }
+
+    function getSubjectContent() {
+
+        //create url to request fragment
+        $('#ajaxLoader').show();
+        // $('.confirmation').on('click', function () {
+        //     return confirm('Are you sure you want to delete?');
+        // });
+        var term = $('#termId').val();
+        var dept = $('#classIdSub').val();
+        var year = $('#year').val();
+        if (term == "default") {
+            $(".panel .replaceDivs").hide();
+        } else {
+            $(".panel .replaceDivs").show();
+            var url = "./subject/term/" + term+"/"+dept+"/"+year+"/";
+            //var urls = "./department/" + uu;
+            var table = $('#tabTable').DataTable({
+                "destroy": true,
+                "sAjaxSource": url,
+                "sAjaxDataProp": "",
+                "order": [[0, "asc"]],
+                "aoColumns": [
+
+                    {"mData": "subjectName"},
+                    {
+                        "mData": "id",
+                        "render": function (data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<a href="/admin/department/update/' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>' +
+                                    '<a class="confirmation" href="/admin/department/delete/' + data + '" onclick = "if (! confirm(\'Are you sure you want to delete?\')) { return false; }"><span class="fa fa-trash" data-toggle="tooltip"  title="Sent to Trash Box"></span></a>';
+                            }
+
+                            return data;
+                        }
+                    }
+
+
+                ]
+            })
+            console.log(url);
+            // $('#replace_div').load(urls);
+
+            //load fragment and replace content
+            // $('#replace_div').load(url);
+        }
+        $('#ajaxLoader').hide();
     }
 })
 

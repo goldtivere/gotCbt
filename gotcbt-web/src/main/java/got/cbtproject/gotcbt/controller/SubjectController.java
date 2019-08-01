@@ -52,7 +52,6 @@ public class SubjectController {
         try {
 
 
-
             if (operation.equals("save")) {
                 if (!sub.getSchoolGrade().equals(null) || sub.getSchoolTerm() != null || sub.getSubjectYear() != null) {
                     if (!sub.equals("") || sub != null) {
@@ -113,4 +112,18 @@ public class SubjectController {
         return "redirect:/admin/subject";
     }
 
+    @GetMapping("/admin/subject/term/{term}/{year}/{dept}")
+    @ResponseBody
+    public List<Subject> getSubject(@PathVariable("term") Long item, @PathVariable("year") Long sYear, @PathVariable("dept") Long dept) {
+        //SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
+
+        System.out.println("values are: "+ item+ " and "+ sYear+ " and "+ dept);
+        if (item == null || sYear == null || dept == null || item.equals(null) || sYear.equals(null) || dept.equals(null)) {
+            throw new RuntimeException("Subject doesnt exist!");
+        }
+
+        return subjectService.findSubject(item, sYear, dept);
+//        return schoolTermRepository.findByIsdeletedAndSchoolGrades(false, schoolGrade);
+
+    }
 }

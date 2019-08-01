@@ -79,7 +79,6 @@ public class StudentGradeServiceImpl implements StudentGradeService {
 
     @Override
     public List<SchoolGrade> findBySchoolClassType(SchoolClass classType) {
-        System.out.println(classType.getId()+ " plus "+ classType.getClassType());
         List<SchoolGrade> schl = schoolGradeRepository.findByIsdeletedAndSchoolClass(false,classType);
         if (!schl.isEmpty()) {
             throw new RuntimeException("ClassType doesnt exist!");

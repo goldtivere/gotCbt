@@ -10,6 +10,7 @@ import java.util.List;
 public interface SubjectService {
     Subject findById(Long id);
     SubjectCommand save(SubjectCommand question);
-    List<Subject> findAll();
+    List<Subject> findSubject(Long term,Long year,Long dept);
     SchoolGrade findById(SchoolGrade grade);
+
 }

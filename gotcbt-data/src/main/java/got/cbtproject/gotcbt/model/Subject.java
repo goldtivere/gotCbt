@@ -1,5 +1,6 @@
 package got.cbtproject.gotcbt.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,15 +20,15 @@ public class Subject extends BaseEntity {
     @Column(name = "subject_name")
     private String subjectName;
 
-
+    @JsonIgnore
     @Column(name = "school_class")
     private Long schoolGrade;
 
-
+    @JsonIgnore
     @Column(name = "term")
     private Long term;
 
-
+    @JsonIgnore
     @Column(name = "year")
-    private Long year ;
+    private Long year;
 }
