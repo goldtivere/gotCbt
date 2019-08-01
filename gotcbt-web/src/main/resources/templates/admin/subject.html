@@ -73,7 +73,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form th:object="${subCom}" th:action="@{/admin/subject/save}" method="post">
+            <form th:object="${subCom}" th:action="@{/admin/subject/save}" method="post" enctype="multipart/form-data">
 
                 <div class="form-group dropSelect">
                     <div class="form-group">
@@ -125,14 +125,14 @@
                 <div class="replace_div2">
                 <div class="form-group">
                     <label for="file">Select file:</label>
-                    <input type="file" id="file" name="file" accept=".xls,.xlsx" class="form-control"  placeholder="Upload File"  ></input>
+                    <input type="file" id="file" name="file" accept=".xls,.xlsx"  class="form-control"  placeholder="Upload File" required ></input>
 
                 </div>
                 </div>
                 <div class="replace_div1">
                 <div class="form-group">
                     <label>Select Subject:</label>
-                    <input type="text" class="form-control pull-right" th:field="*{subjectName}"
+                    <input type="text" class="form-control pull-right" th:field="*{subjectName}" value=""
                            required="required"
                            placeholder="Subject"/>
                 </div>

@@ -3,14 +3,16 @@ package got.cbtproject.gotcbt.controller;
 import got.cbtproject.gotcbt.command.SubjectCommand;
 import got.cbtproject.gotcbt.model.Subject;
 import got.cbtproject.gotcbt.repositories.SubjectRepo;
-import got.cbtproject.gotcbt.services.SchoolYearService;
-import got.cbtproject.gotcbt.services.StudentGradeService;
-import got.cbtproject.gotcbt.services.StudentTermService;
-import got.cbtproject.gotcbt.services.SubjectService;
+import got.cbtproject.gotcbt.services.*;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +26,16 @@ public class SubjectController {
     private final GlobalController globalController;
     private final SubjectService subjectService;
     private final SubjectRepo subjectRepo;
+    private final ExcelUploadService excelUploadService;
 
-    public SubjectController(StudentGradeService studentGradeService, StudentTermService studentTermService, SchoolYearService schoolYearService, GlobalController globalController, SubjectService subjectService, SubjectRepo subjectRepo) {
+    public SubjectController(StudentGradeService studentGradeService, StudentTermService studentTermService, SchoolYearService schoolYearService, GlobalController globalController, SubjectService subjectService, SubjectRepo subjectRepo, ExcelUploadService excelUploadService) {
         this.studentGradeService = studentGradeService;
         this.studentTermService = studentTermService;
         this.schoolYearService = schoolYearService;
         this.globalController = globalController;
         this.subjectService = subjectService;
         this.subjectRepo = subjectRepo;
+        this.excelUploadService = excelUploadService;
     }
 
     @GetMapping("/admin/subject/val/{item}")
@@ -45,7 +49,7 @@ public class SubjectController {
     }
 
     @PostMapping("/admin/subject/{operation}")
-    public String saveTodo(@ModelAttribute("subCom") SubjectCommand sub,
+    public String saveTodo(MultipartFile file,@ModelAttribute("subCom") SubjectCommand sub,
                            @ModelAttribute("deptUpdate") SubjectCommand subject, @PathVariable("operation") String operation,
                            final RedirectAttributes redirectAttributes) {
         // logger.info("/task/save");
@@ -55,18 +59,31 @@ public class SubjectController {
             if (operation.equals("save")) {
                 if (!sub.getSchoolGrade().equals(null) || sub.getSchoolTerm() != null || sub.getSubjectYear() != null) {
                     if (!sub.equals("") || sub != null) {
-                        System.out.println("Hello " + sub.getSchoolGrade() + "  yyyyyy  " + studentGradeService.findByGradeName(Long.valueOf(sub.getSchoolGrade())).getGrade());
-                        sub.setSchoolGrade1(studentGradeService.findByGradeName(Long.valueOf(sub.getSchoolGrade())).getId());
-                        sub.setYear(schoolYearService.findByYear(Long.valueOf(sub.getSubjectYear())).getId());
-                        sub.setTerm(studentTermService.findById(Long.valueOf(sub.getSchoolTerm())).getId());
-                        sub.setCreatedBy(globalController.getLoginUser().getId());
-                        sub.setDateCreated(LocalDate.now());
-                        sub.setIsdeleted(false);
+                        if(sub.getEntryType().equalsIgnoreCase("entry")) {
+                            System.out.println("Hello " + sub.getSchoolGrade() + "  yyyyyy  " + studentGradeService.findByGradeName(Long.valueOf(sub.getSchoolGrade())).getGrade());
+                            sub.setSchoolGrade1(studentGradeService.findByGradeName(Long.valueOf(sub.getSchoolGrade())).getId());
+                            sub.setYear(schoolYearService.findByYear(Long.valueOf(sub.getSubjectYear())).getId());
+                            sub.setTerm(studentTermService.findById(Long.valueOf(sub.getSchoolTerm())).getId());
+                            sub.setCreatedBy(globalController.getLoginUser().getId());
+                            sub.setDateCreated(LocalDate.now());
+                            sub.setIsdeleted(false);
 
 
-                        subjectService.save(sub);
-                        redirectAttributes.addFlashAttribute("msg", "active");
-                        redirectAttributes.addFlashAttribute("msgText", "Subject Saved Successfully!!");
+                            subjectService.save(sub);
+                            redirectAttributes.addFlashAttribute("msg", "active");
+                            redirectAttributes.addFlashAttribute("msgText", "Subject Saved Successfully!!");
+                        }
+                        else if(sub.getEntryType().equalsIgnoreCase("upload"))
+                        {
+                            InputStream in = file.getInputStream();
+                            File currDir = new File(file.getOriginalFilename());
+                            OPCPackage pkg = OPCPackage.open(in);
+                            XSSFWorkbook wb = new XSSFWorkbook(pkg);
+
+                            excelUploadService.workBook(wb);
+                            pkg.close();
+                        }
+
                     } else {
                         redirectAttributes.addFlashAttribute("msg", "Invalid Id");
                     }
@@ -117,7 +134,7 @@ public class SubjectController {
     public List<Subject> getSubject(@PathVariable("term") Long item, @PathVariable("year") Long sYear, @PathVariable("dept") Long dept) {
         //SchoolGrade schoolGrade = studentGradeService.findByGradeName(item);
 
-        System.out.println("values are: "+ item+ " and "+ sYear+ " and "+ dept);
+
         if (item == null || sYear == null || dept == null || item.equals(null) || sYear.equals(null) || dept.equals(null)) {
             throw new RuntimeException("Subject doesnt exist!");
         }

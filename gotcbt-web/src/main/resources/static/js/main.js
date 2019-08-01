@@ -73,18 +73,27 @@ $(document).ready(function () {
         $(".replace_div2").hide();
 
     }
+
     function getSel() {
 
         var uu = $('#entryType').val();
 
         if (uu == "Entry") {
-
+            $(".replace_div1 .form-control").removeAttr("required")
+            $(".replace_div1 .form-control").prop("required",true);
             $(".replace_div1").show();
-            $(".replace_div2").hide();
-        } else if(uu=="Upload"){
 
-            $(".replace_div1").hide();
+
+            $(".replace_div2 .form-control").removeAttr("required")
+            $(".replace_div2").hide();
+        } else if (uu == "Upload") {
+            $(".replace_div2 .form-control").removeAttr("required")
+            $(".replace_div2 .form-control").prop("required",true);
             $(".replace_div2").show();
+
+            $(".replace_div1 .form-control").removeAttr("required")
+            $(".replace_div1").hide();
+
 
         }
 
@@ -214,7 +223,7 @@ $(document).ready(function () {
             $(".panel .replaceDivs").hide();
         } else {
             $(".panel .replaceDivs").show();
-            var url = "./subject/term/" + term+"/"+dept+"/"+year+"/";
+            var url = "./subject/term/" + term + "/" + dept + "/" + year + "/";
             //var urls = "./department/" + uu;
             var table = $('#tabTable').DataTable({
                 "destroy": true,
@@ -228,8 +237,8 @@ $(document).ready(function () {
                         "mData": "id",
                         "render": function (data, type, row, meta) {
                             if (type === 'display') {
-                                data = '<a href="/admin/department/update/' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>' +
-                                    '<a class="confirmation" href="/admin/department/delete/' + data + '" onclick = "if (! confirm(\'Are you sure you want to delete?\')) { return false; }"><span class="fa fa-trash" data-toggle="tooltip"  title="Sent to Trash Box"></span></a>';
+                                data = '<a href="/admin/subject/update/' + data + '"><span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>' +
+                                    '<a class="confirmation" href="/admin/subject/delete/' + data + '" onclick = "if (! confirm(\'Are you sure you want to delete?\')) { return false; }"><span class="fa fa-trash" data-toggle="tooltip"  title="Sent to Trash Box"></span></a>';
                             }
 
                             return data;
