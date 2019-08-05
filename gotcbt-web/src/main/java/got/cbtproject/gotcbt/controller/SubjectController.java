@@ -75,13 +75,31 @@ public class SubjectController {
                         }
                         else if(sub.getEntryType().equalsIgnoreCase("upload"))
                         {
+                            List<String> subjectHolder= new ArrayList<>();
                             InputStream in = file.getInputStream();
                             File currDir = new File(file.getOriginalFilename());
                             OPCPackage pkg = OPCPackage.open(in);
                             XSSFWorkbook wb = new XSSFWorkbook(pkg);
 
-                            excelUploadService.workBook(wb);
+                            subjectHolder= (List<String>) excelUploadService.workBook(wb);
+
+                            for(String subj: subjectHolder)
+                            {
+                                sub.setSubjectName(subj);
+                                sub.setSchoolGrade1(studentGradeService.findByGradeName(Long.valueOf(sub.getSchoolGrade())).getId());
+                                sub.setYear(schoolYearService.findByYear(Long.valueOf(sub.getSubjectYear())).getId());
+                                sub.setTerm(studentTermService.findById(Long.valueOf(sub.getSchoolTerm())).getId());
+                                sub.setCreatedBy(globalController.getLoginUser().getId());
+                                sub.setDateCreated(LocalDate.now());
+                                sub.setIsdeleted(false);
+
+
+                                subjectService.save(sub);
+                                System.out.println("and subjects are: "+ subj);
+                            }
                             pkg.close();
+                            redirectAttributes.addFlashAttribute("msg", "active");
+                            redirectAttributes.addFlashAttribute("msgText", "Subject Uploaded Successfully!!");
                         }
 
                     } else {

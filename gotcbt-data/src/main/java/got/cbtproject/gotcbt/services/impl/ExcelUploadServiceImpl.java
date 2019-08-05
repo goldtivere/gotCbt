@@ -15,7 +15,7 @@ import java.util.List;
 public class ExcelUploadServiceImpl implements ExcelUploadService {
 
     @Override
-    public List<Subject> workBook(XSSFWorkbook wb) {
+    public List<String> workBook(XSSFWorkbook wb) {
         XSSFSheet ws = wb.getSheetAt(0);
         Row rows;
         rows = (Row) ws.getRow(0);
@@ -26,11 +26,12 @@ public class ExcelUploadServiceImpl implements ExcelUploadService {
         int rowNum = ws.getLastRowNum() + 1;
         int finalSize = colNum - 1;
         Boolean testCol = false;
-        int valCount = 0;
-        System.out.println("last row 1: "+ rowNum+ " last row 2: "+ws.getLastRowNum());
-        List<Subject> s = new ArrayList<>();
+        int valCount = 1;
+        System.out.println("last row 1: " + rowNum + " last row 2: " + ws.getLastRowNum());
+        List<String> s = new ArrayList<>();
+        Subject sub = new Subject();
 
-        for (int i = 0; i <= ws.getLastRowNum(); i++) {
+        for (int i = 1; i <= ws.getLastRowNum(); i++) {
             rows = (Row) ws.getRow(valCount);
 
             for (Cell cell : rows) {
@@ -44,9 +45,16 @@ public class ExcelUploadServiceImpl implements ExcelUploadService {
 //                        lst.add(cell.getStringCellValue());
 //                    }
 //                }
-                System.out.println("i am here balls: " + cell.getStringCellValue());
+
+                s.add(cell.getStringCellValue());
+
             }
+
+
             valCount++;
+        }
+        for (String v : s) {
+            System.out.println("s values: " + v);
         }
         return s;
     }

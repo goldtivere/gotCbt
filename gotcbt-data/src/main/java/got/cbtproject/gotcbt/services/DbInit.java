@@ -74,6 +74,6 @@ public class DbInit implements CommandLineRunner {
         List<Users> users = Arrays.asList(dan, dans, danss);
 
         // Save to db
-        this.userRepository.saveAll(users);
+       this.userRepository.saveAll(users);
     }
 }
